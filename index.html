@@ -4,985 +4,788 @@
 <meta charset="UTF-8">
 <meta name="theme-color" content="#1E3932">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>🐱 Neko Café · Event Estimator</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover">
+<title>🐱 Neko Café · Estimator</title>
 <style>
-:root {
-  --green: #00704A; --dark: #1E3932; --light: #D4E9E2; --cream: #F2EFE8;
-  --gold: #CBA258; --white: #FFFFFF; --gray: #747474; --black: #1E1E1E;
-  --red: #c0392b; --blue: #7ec8f0; --mint: #7ecfa8;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-html { scroll-behavior: smooth; overflow-x: hidden; }
-body {
-  font-family: ui-rounded, 'Helvetica Neue', Arial, sans-serif;
-  background-color: var(--cream);
-  background-image: radial-gradient(circle, #c8ddd8 1px, transparent 1px);
-  background-size: 24px 24px;
-  color: var(--black); min-height: 100vh; padding: 16px 12px 60px;
-  -webkit-text-size-adjust: 100%; overflow-x: hidden;
-}
-.container { max-width: 740px; margin: 0 auto; width: 100%; overflow-x: hidden; }
-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
-.logo {
-  width: 42px; height: 42px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--green) 0%, var(--dark) 100%);
-  box-shadow: 0 4px 14px rgba(0,112,74,0.4);
-  display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;
-  animation: float 3s ease-in-out infinite;
-}
-@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
-header h1 { font-size: 1.4rem; font-weight: 800; line-height: 1.15; color: var(--dark); }
-header p { font-size: 0.72rem; color: var(--green); margin-top: 4px; letter-spacing: 0.06em; text-transform: uppercase; }
-.card { background: var(--white); border: 2px solid var(--light); border-radius: 16px; padding: 16px 14px; margin-bottom: 12px; }
-.card-title { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dark); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
-.card-title .num { background: var(--green); color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; flex-shrink: 0; }
-.field { margin-bottom: 18px; }
-.field:last-child { margin-bottom: 0; }
-label { display: block; font-size: 0.75rem; color: var(--gray); margin-bottom: 8px; }
-label strong { color: var(--dark); }
-input[type="number"] { width: 100%; background: var(--light); border: 1px solid #c8ddd8; border-radius: 8px; color: var(--black); font-family: inherit; font-size: 16px; padding: 14px; outline: none; transition: border-color 0.2s; }
-input[type="number"]:focus { border-color: var(--green); }
-input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; }
-input[type=number] { -moz-appearance: textfield; }
-.options { display: grid; gap: 8px; }
-.options.cols-2 { grid-template-columns: 1fr 1fr; }
-.options.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+:root{--green:#00704A;--dark:#1E3932;--light:#D4E9E2;--cream:#F2EFE8;--gold:#CBA258;--white:#FFFFFF;--gray:#747474;--black:#1E1E1E;--red:#c0392b;--mint:#7ecfa8;--blue:#7ec8f0;}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;overflow-x:hidden;}
+body{font-family:ui-rounded,"Helvetica Neue",Arial,sans-serif;background-color:var(--cream);background-image:radial-gradient(circle,#c8ddd8 1px,transparent 1px);background-size:24px 24px;color:var(--black);min-height:100vh;padding:16px 12px 60px;-webkit-text-size-adjust:100%;overflow-x:hidden;}
+.container{max-width:740px;margin:0 auto;width:100%;overflow-x:hidden;}
+header{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+.logo{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--dark));box-shadow:0 4px 14px rgba(0,112,74,0.4);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;animation:float 3s ease-in-out infinite;}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+header h1{font-size:1.4rem;font-weight:800;line-height:1.15;color:var(--dark);}
+header p{font-size:0.72rem;color:var(--green);margin-top:4px;letter-spacing:0.06em;text-transform:uppercase;}
+.card{background:var(--white);border:2px solid var(--light);border-radius:16px;padding:16px 14px;margin-bottom:12px;}
+.card-title{font-size:0.65rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--dark);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.card-title .num{background:var(--green);color:white;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:0.6rem;flex-shrink:0;}
+.field{margin-bottom:18px;}.field:last-child{margin-bottom:0;}
+label{display:block;font-size:0.75rem;color:var(--gray);margin-bottom:8px;}
+label strong{color:var(--dark);}
+input[type="number"]{width:100%;background:var(--light);border:1px solid #c8ddd8;border-radius:8px;color:var(--black);font-family:inherit;font-size:16px;padding:14px;outline:none;transition:border-color 0.2s;}
+input[type="number"]:focus{border-color:var(--green);}
+input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appearance:none;}
+input[type=number]{-moz-appearance:textfield;}
+.options{display:grid;gap:8px;}.options.cols-2{grid-template-columns:1fr 1fr;}.options.cols-3{grid-template-columns:1fr 1fr 1fr;}
 @media(max-width:400px){.options.cols-3{grid-template-columns:1fr 1fr;}}
-.opt { background: var(--light); border: 1.5px solid #c8ddd8; border-radius: 14px; color: var(--gray); font-family: inherit; font-size: 0.78rem; padding: 13px 8px; min-height: 52px; cursor: pointer; text-align: center; transition: all 0.15s; line-height: 1.4; }
-.opt:hover { border-color: var(--green); color: var(--black); }
-.opt.active { background: var(--green); border-color: var(--dark); color: white; }
-.opt .lbl { display: block; font-weight: 600; }
-.opt .sub { display: block; font-size: 0.62rem; opacity: 0.7; margin-top: 2px; }
-.mode-toggle-wrap { position: sticky; top: 0; z-index: 100; background: var(--cream); padding: 8px 0 10px; margin-bottom: 8px; border-bottom: 2px solid var(--light); }
-.mode-toggle { display: grid; grid-template-columns: repeat(6, 1fr); gap: 5px; }
-.mode-btn { padding: 8px 2px; border: 2px solid var(--light); border-radius: 10px; background: var(--white); font-family: inherit; font-size: 0.62rem; font-weight: 700; color: var(--gray); cursor: pointer; text-align: center; transition: all 0.15s; line-height: 1.3; min-height: 48px; }
-.mode-btn:hover { border-color: var(--green); color: var(--black); }
-.mode-btn.active { background: var(--green); border-color: var(--green); color: white; box-shadow: 0 3px 10px rgba(0,112,74,0.3); }
-.mode-section { display: none; }
-.mode-section.visible { display: block; }
-
-/* Ship grid */
-.ship-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.ship-btn { background: var(--light); border: 1.5px solid #c8ddd8; border-radius: 14px; color: var(--gray); font-family: inherit; font-size: 0.72rem; padding: 12px 8px; min-height: 90px; cursor: pointer; text-align: center; transition: all 0.15s; line-height: 1.5; }
-.ship-btn:hover { border-color: var(--dark); color: var(--black); }
-.ship-btn .s-icon { font-size: 1.6rem; display: block; margin-bottom: 4px; }
-.ship-btn .s-name { display: block; font-weight: 700; }
-.ship-btn .s-size { display: block; font-size: 0.64rem; opacity: 0.75; }
-.ship-btn .s-data { display: block; font-size: 0.62rem; margin-top: 4px; opacity: 0.8; }
-
-/* Stacked ships */
-.stacked-ship { background: var(--white); border: 2px solid var(--light); border-radius: 12px; padding: 10px 12px; margin-bottom: 8px; }
-.stacked-ship-header { display: flex; align-items: center; gap: 10px; }
-.stacked-ship .ss-icon { font-size: 1.4rem; flex-shrink: 0; }
-.stacked-ship .ss-info { flex: 1; }
-.stacked-ship .ss-name { font-weight: 700; font-size: 0.82rem; color: var(--black); }
-.stacked-ship .ss-detail { font-size: 0.67rem; color: var(--gray); margin-top: 2px; }
-.stacked-ship .ss-tsd { font-weight: 700; font-size: 1.1rem; color: var(--green); min-width: 52px; text-align: right; }
-.ship-remove { background: none; border: none; font-size: 1.1rem; cursor: pointer; color: var(--gray); padding: 8px; min-width: 36px; min-height: 36px; display: flex; align-items: center; justify-content: center; }
-.ship-remove:hover { color: var(--red); }
-.pier-toggle { display: flex; gap: 6px; margin-top: 8px; }
-.pier-btn-sm { flex: 1; padding: 6px 8px; border: 1.5px solid #c8ddd8; border-radius: 8px; background: var(--light); font-family: inherit; font-size: 0.68rem; font-weight: 600; color: var(--gray); cursor: pointer; text-align: center; transition: all 0.15s; }
-.pier-btn-sm:hover { border-color: var(--green); color: var(--black); }
-.pier-btn-sm.active { background: var(--green); border-color: var(--dark); color: white; }
-
-/* Results cards */
-.cruise-results { background: linear-gradient(135deg, #1e3932 0%, #00704a 100%); border-radius: 20px; padding: 26px; margin-bottom: 16px; color: white; }
-.results { background: linear-gradient(135deg, #1e3932 0%, #2d6a4f 100%); border-radius: 16px; padding: 18px 16px; margin-bottom: 12px; color: white; }
-.paramount-results { background: linear-gradient(135deg, #2d1b4e 0%, #7c3aad 100%); border-radius: 20px; padding: 26px; margin-bottom: 16px; color: white; }
-.sports-results { background: linear-gradient(135deg, #1a3a5c 0%, #0d6e3e 100%); border-radius: 20px; padding: 26px; margin-bottom: 16px; color: white; }
-.stack-results { background: linear-gradient(135deg, #1e3932 0%, #3d7a5a 100%); border-radius: 20px; padding: 26px; margin-bottom: 16px; color: white; }
-.planner-results { background: linear-gradient(135deg, #1e3932 0%, #2d5a4a 100%); border-radius: 20px; padding: 24px; margin-bottom: 16px; color: white; }
-
-.results-header { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 16px; }
-.big-stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 16px; }
-.big-stat { text-align: center; }
-.big-stat .val { font-size: 2.4rem; font-weight: 800; line-height: 1; color: var(--mint); }
-.big-stat.main .val { font-size: 3rem; color: white; }
-.big-stat .lbl { font-size: 0.62rem; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 4px; }
-.result-section { background: rgba(255,255,255,0.1); border-radius: 12px; padding: 14px; margin-bottom: 14px; }
-.result-section-title { font-size: 0.65rem; color: rgba(255,255,255,0.5); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
-.rrow { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 0.74rem; }
-.rrow:last-child { border-bottom: none; }
-.rrow-label { color: rgba(255,255,255,0.5); }
-.rrow-val { color: white; font-weight: 600; }
-.rrow-val.gold { color: #ffe08a; font-size: 1rem; }
-.rrow-val.mint { color: var(--mint); }
-
-.daypart-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 16px; }
-.daypart-card { background: rgba(255,255,255,0.1); border-radius: 12px; padding: 12px 8px; text-align: center; }
-.daypart-card .dp-val { font-size: 1.8rem; font-weight: 700; line-height: 1; color: #ffe08a; }
-.daypart-card.main .dp-val { font-size: 2.4rem; color: white; }
-.daypart-card .dp-lbl { font-size: 0.6rem; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.07em; margin-top: 4px; }
-
-.alert-banner { border-radius: 10px; padding: 10px 14px; font-size: 0.7rem; margin-bottom: 10px; line-height: 1.6; }
-.alert-gold { background: rgba(255,224,138,0.15); border: 1px solid rgba(255,224,138,0.35); color: #ffe08a; }
-.alert-red { background: rgba(192,57,43,0.15); border: 1px solid rgba(192,57,43,0.35); color: #f4a0c8; }
-.alert-blue { background: rgba(126,200,240,0.15); border: 1px solid rgba(126,200,240,0.35); color: var(--blue); }
-.alert-green { background: rgba(125,197,160,0.15); border: 1px solid rgba(125,197,160,0.35); color: var(--mint); }
-
-/* Sports */
-.sports-daypart-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin-bottom: 14px; }
-.sp-dp { background: rgba(255,255,255,0.08); border-radius: 10px; padding: 10px 6px; text-align: center; }
-.sp-dp .spd-val { font-size: 1.4rem; font-weight: 700; color: var(--mint); line-height: 1; }
-.sp-dp.main .spd-val { font-size: 2rem; color: white; }
-.sp-dp .spd-lbl { font-size: 0.56rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 4px; }
-.iplh-wrap { height: 10px; background: rgba(255,255,255,0.1); border-radius: 5px; overflow: hidden; margin-top: 6px; }
-.iplh-fill { height: 100%; border-radius: 5px; transition: width 0.5s ease; background: linear-gradient(90deg, var(--mint), #ffe08a, #f4a0c8); }
-
-/* Stack */
-.add-event-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
-@media(max-width:360px){.add-event-grid{grid-template-columns:1fr;}}
-.add-evt-btn { background: var(--light); border: 1.5px solid #c8ddd8; border-radius: 12px; font-family: inherit; font-size: 0.72rem; font-weight: 600; padding: 10px; cursor: pointer; text-align: left; color: var(--gray); transition: all 0.15s; display: flex; align-items: center; gap: 8px; }
-.add-evt-btn:hover { border-color: var(--green); color: var(--black); background: var(--light); }
-.add-evt-btn .aeb-icon { font-size: 1.1rem; }
-.add-evt-btn .aeb-text { line-height: 1.3; }
-.add-evt-btn .aeb-sub { display: block; font-size: 0.6rem; font-weight: 400; opacity: 0.7; }
-.stack-event-item { background: var(--white); border: 2px solid var(--light); border-radius: 14px; padding: 12px 14px; display: flex; align-items: center; gap: 10px; min-height: 56px; margin-bottom: 8px; }
-.stack-event-item .se-icon { font-size: 1.4rem; flex-shrink: 0; }
-.stack-event-item .se-info { flex: 1; }
-.stack-event-item .se-name { font-weight: 700; font-size: 0.82rem; color: var(--black); }
-.stack-event-item .se-detail { font-size: 0.67rem; color: var(--gray); margin-top: 2px; }
-.stack-event-item .se-tsd { font-weight: 700; font-size: 1.1rem; color: var(--green); min-width: 52px; text-align: right; }
-.stack-remove { background: none; border: none; font-size: 1.1rem; cursor: pointer; color: var(--gray); padding: 8px; min-width: 36px; min-height: 36px; display: flex; align-items: center; justify-content: center; }
-.stack-remove:hover { color: var(--red); }
-.stack-stat-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 16px; }
-.stack-stat { background: rgba(255,255,255,0.08); border-radius: 12px; padding: 12px 8px; text-align: center; }
-.stack-stat .ss-val { font-size: 2rem; font-weight: 700; color: white; line-height: 1; }
-.stack-stat.gold .ss-val { color: #ffe08a; }
-.stack-stat .ss-lbl { font-size: 0.58rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.07em; margin-top: 5px; }
-.stack-event-tag { display: inline-block; background: rgba(255,255,255,0.12); border-radius: 20px; padding: 3px 10px; font-size: 0.65rem; margin: 2px; color: rgba(255,255,255,0.7); }
-
-/* Planner */
-.week-grid { display: grid; gap: 10px; }
-.day-row { background: var(--white); border: 2px solid var(--light); border-radius: 16px; padding: 12px 14px; display: grid; grid-template-columns: 52px 1fr; gap: 10px; align-items: start; }
-.day-row.has-event { border-color: var(--green); background: #e8f5ee; }
-.day-label { font-weight: 700; font-size: 0.85rem; color: var(--dark); padding-top: 2px; }
-.day-baseline { font-size: 0.62rem; color: var(--gray); margin-top: 2px; }
-.event-pills { display: flex; flex-wrap: wrap; gap: 6px; }
-.event-pill { background: var(--light); border: 1.5px solid #c8ddd8; border-radius: 20px; font-size: 0.67rem; padding: 6px 10px; min-height: 32px; cursor: pointer; font-family: inherit; font-weight: 600; color: var(--gray); transition: all 0.15s; white-space: nowrap; }
-.event-pill:hover { border-color: var(--green); color: var(--black); }
-.event-pill.active { background: var(--green); border-color: var(--dark); color: white; }
-.event-pill.cruise-pill.active { background: #3a6fad; border-color: #3a6fad; color: white; }
-.event-pill.show-pill.active { background: #7c3aad; border-color: #7c3aad; color: white; }
-.week-summary-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 20px; }
-.week-stat { background: rgba(255,255,255,0.08); border-radius: 12px; padding: 14px 10px; text-align: center; }
-.week-stat .ws-val { font-size: 2rem; font-weight: 700; color: var(--mint); line-height: 1; }
-.week-stat.main .ws-val { font-size: 2.5rem; color: white; }
-.week-stat .ws-lbl { font-size: 0.6rem; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 0.07em; margin-top: 5px; }
-.day-result-row { display: grid; grid-template-columns: 52px 1fr 60px 60px 70px; gap: 6px; align-items: center; padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 0.72rem; }
-.day-result-row:last-child { border-bottom: none; }
-.day-result-row.header { color: rgba(255,255,255,0.35); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.06em; }
-.dr-day { color: rgba(255,255,255,0.7); font-weight: 600; }
-.dr-events { color: rgba(255,255,255,0.5); font-size: 0.65rem; }
-.dr-tsd { color: white; font-weight: 600; text-align: right; }
-.dr-hrs { color: var(--mint); font-weight: 600; text-align: right; }
-.dr-vs { font-size: 0.62rem; text-align: right; }
-.dr-vs.up { color: var(--mint); }
-.dr-vs.down { color: #f4a0c8; }
-.rule200-note { background: rgba(255,224,138,0.12); border: 1px solid rgba(255,224,138,0.25); border-radius: 10px; padding: 12px 14px; font-size: 0.7rem; color: rgba(255,255,255,0.7); margin-top: 16px; line-height: 1.6; }
-.rule200-note strong { color: #ffe08a; }
-
-/* Chart */
-.chart-card { background: var(--white); border: 2px solid var(--light); border-radius: 20px; padding: 24px; margin-bottom: 16px; }
-.chart-title { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); margin-bottom: 20px; }
-.chart-wrap { position: relative; height: 160px; display: flex; align-items: flex-end; gap: 3px; padding-bottom: 28px; padding-left: 34px; }
-.chart-bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; position: relative; }
-.chart-bar { width: 100%; border-radius: 4px 4px 0 0; min-height: 4px; }
-.chart-label { position: absolute; bottom: -22px; font-size: 0.58rem; color: var(--gray); white-space: nowrap; transform: translateX(-50%); left: 50%; }
-.chart-tip { position: absolute; top: -20px; font-size: 0.6rem; color: var(--black); font-weight: 500; white-space: nowrap; transform: translateX(-50%); left: 50%; opacity: 0; transition: opacity 0.2s; }
-.chart-bar-wrap:hover .chart-tip { opacity: 1; }
-.y-axis { position: absolute; left: 0; top: 0; bottom: 28px; width: 34px; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-end; padding-right: 6px; }
-.y-label { font-size: 0.58rem; color: var(--gray); }
-.chart-legend { display: flex; gap: 16px; margin-top: 12px; flex-wrap: wrap; }
-.legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.68rem; color: var(--gray); }
-.legend-dot { width: 10px; height: 10px; border-radius: 2px; }
-.empty { text-align: center; padding: 28px; color: var(--gray); font-size: 0.78rem; }
-.empty-stack { text-align: center; padding: 20px; color: var(--gray); font-size: 0.78rem; line-height: 1.6; }
-.show-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.show-btn { background: var(--light); border: 1.5px solid #c8ddd8; border-radius: 14px; color: var(--gray); font-family: inherit; font-size: 0.73rem; padding: 12px 8px; cursor: pointer; text-align: center; transition: all 0.15s; line-height: 1.5; }
-.show-btn:hover { border-color: #7c3aad; color: var(--black); }
-.show-btn.active { background: #7c3aad; border-color: #7c3aad; color: white; }
-.show-btn .sh-icon { font-size: 1.5rem; display: block; margin-bottom: 3px; }
-.show-btn .sh-name { display: block; font-weight: 700; }
-.show-btn .sh-sub { display: block; font-size: 0.62rem; opacity: 0.7; margin-top: 2px; }
-.p-daypart-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 18px; }
-.p-dp { background: rgba(255,255,255,0.1); border-radius: 12px; padding: 12px 8px; text-align: center; }
-.p-dp .pdp-val { font-size: 1.7rem; font-weight: 700; color: #e8c5ff; line-height: 1; }
-.p-dp.main .pdp-val { font-size: 2.4rem; color: white; }
-.p-dp .pdp-lbl { font-size: 0.58rem; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px; }
-.prow { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.74rem; }
-.prow:last-child { border-bottom: none; }
-.prow-label { color: rgba(255,255,255,0.5); }
-.prow-val { color: white; font-weight: 600; }
-.prow-val.gold { color: #ffe08a; }
-.chart-card-blue { background: var(--white); border: 2px solid #b8d4f0; border-radius: 20px; padding: 24px; margin-bottom: 16px; }
-.chart-card-purple { background: var(--white); border: 2px solid #d4b8f0; border-radius: 20px; padding: 24px; margin-bottom: 16px; }
-.chart-card-sports { background: var(--white); border: 2px solid #a8d8b8; border-radius: 20px; padding: 24px; margin-bottom: 16px; }
-.split-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-.split-row:last-child { margin-bottom: 0; }
-.split-icon { font-size: 1rem; width: 24px; text-align: center; }
-.split-info { flex: 1; }
-.split-name { font-size: 0.72rem; color: rgba(255,255,255,0.7); margin-bottom: 4px; }
-.split-bar { height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden; }
-.split-bar-fill { height: 100%; border-radius: 3px; }
-.split-count { font-size: 1.1rem; font-weight: 700; min-width: 50px; text-align: right; }
+.opt{background:var(--light);border:1.5px solid #c8ddd8;border-radius:14px;color:var(--gray);font-family:inherit;font-size:0.78rem;padding:13px 8px;min-height:52px;cursor:pointer;text-align:center;transition:all 0.15s;line-height:1.4;}
+.opt:hover{border-color:var(--green);color:var(--black);}.opt.active{background:var(--green);border-color:var(--dark);color:white;}
+.opt .lbl{display:block;font-weight:600;}.opt .sub{display:block;font-size:0.62rem;opacity:0.7;margin-top:2px;}
+.mode-toggle-wrap{position:sticky;top:0;z-index:100;background:var(--cream);padding:8px 0 10px;margin-bottom:8px;border-bottom:2px solid var(--light);}
+.mode-toggle{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;}
+.mode-btn{padding:7px 2px;border:2px solid var(--light);border-radius:10px;background:var(--white);font-family:inherit;font-size:0.58rem;font-weight:700;color:var(--gray);cursor:pointer;text-align:center;transition:all 0.15s;line-height:1.3;min-height:46px;}
+.mode-btn:hover{border-color:var(--green);color:var(--black);}
+.mode-btn.active{background:var(--green);border-color:var(--green);color:white;box-shadow:0 3px 10px rgba(0,112,74,0.3);}
+.mode-btn.summary-btn{background:var(--dark);border-color:var(--dark);color:var(--mint);}
+.mode-btn.summary-btn.active{background:var(--mint);border-color:var(--mint);color:var(--dark);}
+.mode-section{display:none;}.mode-section.visible{display:block;}
+.ship-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.ship-btn{background:var(--light);border:1.5px solid #c8ddd8;border-radius:14px;color:var(--gray);font-family:inherit;font-size:0.72rem;padding:12px 8px;min-height:90px;cursor:pointer;text-align:center;transition:all 0.15s;line-height:1.5;}
+.ship-btn:hover{border-color:var(--dark);color:var(--black);}
+.ship-btn .s-icon{font-size:1.6rem;display:block;margin-bottom:4px;}.ship-btn .s-name{display:block;font-weight:700;}.ship-btn .s-size{display:block;font-size:0.64rem;opacity:0.75;}.ship-btn .s-data{display:block;font-size:0.62rem;margin-top:4px;opacity:0.8;}
+.stacked-ship{background:var(--white);border:2px solid var(--light);border-radius:12px;padding:10px 12px;margin-bottom:8px;}
+.stacked-ship-header{display:flex;align-items:center;gap:10px;}
+.ss-icon{font-size:1.4rem;flex-shrink:0;}.ss-info{flex:1;}.ss-name{font-weight:700;font-size:0.82rem;color:var(--black);}.ss-detail{font-size:0.67rem;color:var(--gray);margin-top:2px;}.ss-tsd{font-weight:700;font-size:1.1rem;color:var(--green);min-width:52px;text-align:right;}
+.ship-remove{background:none;border:none;font-size:1.1rem;cursor:pointer;color:var(--gray);padding:8px;min-width:36px;min-height:36px;display:flex;align-items:center;justify-content:center;}
+.ship-remove:hover{color:var(--red);}
+.pier-toggle{display:flex;gap:6px;margin-top:8px;}
+.pier-btn-sm{flex:1;padding:6px 8px;border:1.5px solid #c8ddd8;border-radius:8px;background:var(--light);font-family:inherit;font-size:0.68rem;font-weight:600;color:var(--gray);cursor:pointer;text-align:center;transition:all 0.15s;}
+.pier-btn-sm:hover{border-color:var(--green);color:var(--black);}.pier-btn-sm.active{background:var(--green);border-color:var(--dark);color:white;}
+.show-btn{background:var(--light);border:1.5px solid #c8ddd8;border-radius:14px;color:var(--gray);font-family:inherit;font-size:0.73rem;padding:12px 8px;cursor:pointer;text-align:center;transition:all 0.15s;line-height:1.5;}
+.show-btn:hover{border-color:#7c3aad;color:var(--black);}.show-btn.active{background:#7c3aad;border-color:#7c3aad;color:white;}
+.show-btn .sh-icon{font-size:1.5rem;display:block;margin-bottom:3px;}.show-btn .sh-name{display:block;font-weight:700;}.show-btn .sh-sub{display:block;font-size:0.62rem;opacity:0.7;margin-top:2px;}
+.result-card{border-radius:20px;padding:24px;margin-bottom:14px;color:white;}
+.result-card.green{background:linear-gradient(135deg,#1e3932,#00704a);}
+.result-card.purple{background:linear-gradient(135deg,#2d1b4e,#7c3aad);}
+.result-card.teal{background:linear-gradient(135deg,#1a3a5c,#0d6e3e);}
+.result-card.summary{background:linear-gradient(135deg,#1e3932,#2d6a4f);}
+.result-header{font-size:0.65rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:14px;}
+.big-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px;}
+.big-stat{text-align:center;}.big-stat .val{font-size:2.4rem;font-weight:800;line-height:1;color:var(--mint);}.big-stat.main .val{font-size:3rem;color:white;}.big-stat .lbl{font-size:0.62rem;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:0.08em;margin-top:4px;}
+.result-section{background:rgba(255,255,255,0.1);border-radius:12px;padding:14px;margin-bottom:12px;}
+.result-section-title{font-size:0.62rem;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px;}
+.rrow{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.08);font-size:0.74rem;}
+.rrow:last-child{border-bottom:none;}.rrow-label{color:rgba(255,255,255,0.5);}.rrow-val{color:white;font-weight:600;}.rrow-val.gold{color:#ffe08a;font-size:1rem;}
+.alert-banner{border-radius:10px;padding:10px 14px;font-size:0.7rem;margin-bottom:10px;line-height:1.6;}
+.alert-gold{background:rgba(255,224,138,0.15);border:1px solid rgba(255,224,138,0.35);color:#ffe08a;}
+.alert-red{background:rgba(192,57,43,0.15);border:1px solid rgba(192,57,43,0.35);color:#f4a0c8;}
+.alert-blue{background:rgba(126,200,240,0.15);border:1px solid rgba(126,200,240,0.35);color:var(--blue);}
+.alert-green{background:rgba(125,197,160,0.15);border:1px solid rgba(125,197,160,0.35);color:var(--mint);}
+.summary-source{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.08);border-radius:10px;padding:10px 12px;margin-bottom:8px;}
+.src-icon{font-size:1.4rem;flex-shrink:0;}.src-info{flex:1;}.src-name{font-size:0.82rem;font-weight:700;color:white;}.src-detail{font-size:0.67rem;color:rgba(255,255,255,0.5);margin-top:2px;}.src-tsd{font-weight:700;font-size:1rem;color:var(--mint);}
+.daypart-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px;}
+.dp-card{background:rgba(255,255,255,0.1);border-radius:12px;padding:12px 8px;text-align:center;}
+.dp-card .dp-val{font-size:1.8rem;font-weight:700;line-height:1;color:#ffe08a;}.dp-card.main .dp-val{font-size:2.4rem;color:white;}.dp-card .dp-lbl{font-size:0.6rem;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.07em;margin-top:4px;}
+.sp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;}
+.sp-dp{background:rgba(255,255,255,0.08);border-radius:10px;padding:10px 6px;text-align:center;}
+.sp-dp .spd-val{font-size:1.4rem;font-weight:700;color:var(--mint);line-height:1;}.sp-dp.main .spd-val{font-size:2rem;color:white;}.sp-dp .spd-lbl{font-size:0.56rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.05em;margin-top:4px;}
+.iplh-wrap{height:10px;background:rgba(255,255,255,0.1);border-radius:5px;overflow:hidden;margin-top:6px;}
+.iplh-fill{height:100%;border-radius:5px;background:linear-gradient(90deg,var(--mint),#ffe08a,#f4a0c8);}
+.chart-card{background:var(--white);border:2px solid var(--light);border-radius:20px;padding:24px;margin-bottom:14px;}
+.chart-title{font-size:0.65rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--gray);margin-bottom:20px;}
+.chart-wrap{position:relative;height:160px;display:flex;align-items:flex-end;gap:3px;padding-bottom:28px;padding-left:34px;}
+.chart-bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;position:relative;}
+.chart-bar{width:100%;border-radius:4px 4px 0 0;min-height:4px;}
+.chart-label{position:absolute;bottom:-22px;font-size:0.58rem;color:var(--gray);white-space:nowrap;transform:translateX(-50%);left:50%;}
+.chart-tip{position:absolute;top:-20px;font-size:0.6rem;color:var(--black);font-weight:500;white-space:nowrap;transform:translateX(-50%);left:50%;opacity:0;transition:opacity 0.2s;}
+.chart-bar-wrap:hover .chart-tip{opacity:1;}
+.y-axis{position:absolute;left:0;top:0;bottom:28px;width:34px;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-end;padding-right:6px;}
+.y-label{font-size:0.58rem;color:var(--gray);}
+.chart-legend{display:flex;gap:16px;margin-top:12px;flex-wrap:wrap;}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:0.68rem;color:var(--gray);}
+.legend-dot{width:10px;height:10px;border-radius:2px;}
+.week-grid{display:grid;gap:10px;}
+.day-row{background:var(--white);border:2px solid var(--light);border-radius:16px;padding:12px 14px;display:grid;grid-template-columns:52px 1fr;gap:10px;align-items:start;}
+.day-row.has-event{border-color:var(--green);background:#e8f5ee;}
+.day-label{font-weight:700;font-size:0.85rem;color:var(--dark);padding-top:2px;}
+.day-baseline{font-size:0.62rem;color:var(--gray);margin-top:2px;}
+.event-pills{display:flex;flex-wrap:wrap;gap:6px;}
+.event-pill{background:var(--light);border:1.5px solid #c8ddd8;border-radius:20px;font-size:0.67rem;padding:6px 10px;min-height:32px;cursor:pointer;font-family:inherit;font-weight:600;color:var(--gray);transition:all 0.15s;white-space:nowrap;}
+.event-pill:hover{border-color:var(--green);color:var(--black);}
+.event-pill.active{background:var(--green);border-color:var(--dark);color:white;}
+.event-pill.cruise-pill.active{background:#3a6fad;border-color:#3a6fad;color:white;}
+.event-pill.show-pill.active{background:#7c3aad;border-color:#7c3aad;color:white;}
+.week-summary-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:20px;}
+.week-stat{background:rgba(255,255,255,0.08);border-radius:12px;padding:14px 10px;text-align:center;}
+.week-stat .ws-val{font-size:2rem;font-weight:700;color:var(--mint);line-height:1;}.week-stat.main .ws-val{font-size:2.5rem;color:white;}.week-stat .ws-lbl{font-size:0.6rem;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:0.07em;margin-top:5px;}
+.day-result-row{display:grid;grid-template-columns:52px 1fr 60px 60px 70px;gap:6px;align-items:center;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.08);font-size:0.72rem;}
+.day-result-row:last-child{border-bottom:none;}.day-result-row.header{color:rgba(255,255,255,0.35);font-size:0.6rem;text-transform:uppercase;letter-spacing:0.06em;}
+.dr-day{color:rgba(255,255,255,0.7);font-weight:600;}.dr-events{color:rgba(255,255,255,0.5);font-size:0.65rem;}.dr-tsd{color:white;font-weight:600;text-align:right;}.dr-hrs{color:var(--mint);font-weight:600;text-align:right;}.dr-vs{font-size:0.62rem;text-align:right;}.dr-vs.up{color:var(--mint);}.dr-vs.down{color:#f4a0c8;}
+.rule200-note{background:rgba(255,224,138,0.12);border:1px solid rgba(255,224,138,0.25);border-radius:10px;padding:12px 14px;font-size:0.7rem;color:rgba(255,255,255,0.7);margin-top:16px;line-height:1.6;}
+.rule200-note strong{color:#ffe08a;}
+.empty{text-align:center;padding:28px;color:var(--gray);font-size:0.82rem;line-height:1.8;}
 </style>
 </head>
 <body>
 <div class="container">
-  <header>
-    <div class="logo">🐱</div>
-    <div>
-      <h1>Neko Café · Estimator ✨</h1>
-      <p>☕ 03298 7th & Pike · transactions → barista hours</p>
-    </div>
-  </header>
-
-  <div class="mode-toggle-wrap">
-    <div class="mode-toggle">
-      <button class="mode-btn active" id="btnEvent" onclick="switchMode('event')">🎪<br>Event</button>
-      <button class="mode-btn" id="btnCruise" onclick="switchMode('cruise')">🚢<br>Cruise</button>
-      <button class="mode-btn" id="btnParamount" onclick="switchMode('paramount')">🎭<br>Paramount</button>
-      <button class="mode-btn" id="btnPlanner" onclick="switchMode('planner')">📅<br>Planner</button>
-      <button class="mode-btn" id="btnSports" onclick="switchMode('sports')">🏅<br>Comps</button>
-      <button class="mode-btn" id="btnStack" onclick="switchMode('stack')">📦<br>Stack</button>
-    </div>
-  </div>
-
-  <!-- ===== EVENT MODE ===== -->
-  <div class="mode-section visible" id="eventMode">
-    <div class="card">
-      <div class="card-title"><span class="num">1</span> Event Basics</div>
-      <div class="field">
-        <label><strong>Estimated Attendance</strong> — total headcount at the event</label>
-        <input type="number" id="attendance" placeholder="e.g. 5000" min="0" oninput="calc()">
-      </div>
-      <div class="field">
-        <label><strong>Duration</strong> (hours)</label>
-        <input type="number" id="duration" placeholder="8" min="1" max="24" value="8" oninput="calc()">
-      </div>
-      <div class="field">
-        <label><strong>Start Hour</strong> (24hr format — e.g. 8 = 8am)</label>
-        <input type="number" id="startHour" placeholder="8" min="0" max="23" value="8" oninput="calc()">
-      </div>
-      <div class="field">
-        <label><strong>Day Type</strong></label>
-        <div class="options cols-2" id="dayType">
-          <button class="opt active" data-val="single" data-daymult="1.0" onclick="pick(this,'dayType')"><span class="lbl">🌸 Single Day</span><span class="sub">Standard bell curve</span></button>
-          <button class="opt" data-val="arrival" data-daymult="0.18" onclick="pick(this,'dayType')"><span class="lbl">🚂 Arrival Day</span><span class="sub">~18% lift · builds all day</span></button>
-          <button class="opt" data-val="peak" data-daymult="1.0" onclick="pick(this,'dayType')"><span class="lbl">⭐ Peak Day</span><span class="sub">Busiest day of event</span></button>
-          <button class="opt" data-val="final" data-daymult="0.72" onclick="pick(this,'dayType')"><span class="lbl">🎐 Final Day</span><span class="sub">~72% · front-loaded</span></button>
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title"><span class="num">2</span> Event Type</div>
-      <div class="options cols-2" id="eventType">
-        <button class="opt" data-base="0.019" data-drink="0.70" data-food="0.30" data-complexity="1.0" data-tsdhr="10.5" onclick="pick(this,'eventType')"><span class="lbl">🏮 Festival / Fair</span><span class="sub">70% drinks · 30% food · normal complexity</span></button>
-        <button class="opt" data-base="0.016" data-drink="0.75" data-food="0.25" data-complexity="1.0" data-tsdhr="10.5" onclick="pick(this,'eventType')"><span class="lbl">🎶 Music / Concert</span><span class="sub">75% drinks · 25% food</span></button>
-        <button class="opt" data-base="0.0147" data-drink="0.80" data-food="0.20" data-complexity="1.0" data-tsdhr="10.5" onclick="pick(this,'eventType')"><span class="lbl">🏯 Trade / Expo / Convention</span><span class="sub">80% drinks · 20% food</span></button>
-        <button class="opt" data-base="0.012" data-drink="0.85" data-food="0.15" data-complexity="0.85" data-tsdhr="11.5" data-menu="medical" onclick="pick(this,'eventType')"><span class="lbl">🩺 Medical Convention</span><span class="sub">Drip coffee heavy · fast · low complexity · good IPLH</span></button>
-        <button class="opt" data-base="0.014" data-drink="0.60" data-food="0.40" data-complexity="1.2" data-tsdhr="10.0" data-menu="dental" onclick="pick(this,'eventType')"><span class="lbl">🦷 Dental Convention</span><span class="sub">Sugary drinks · pastries · cookies · medium complexity</span></button>
-        <button class="opt" data-base="0.018" data-drink="0.55" data-food="0.45" data-complexity="1.45" data-tsdhr="9.2" data-menu="nerd" onclick="pick(this,'eventType')"><span class="lbl">🎮 Nerd / Comic Con</span><span class="sub">Frappes · brownies · cookies · sandwiches · cake pops</span></button>
-        <button class="opt" data-base="0.021" data-drink="0.65" data-food="0.35" data-complexity="1.0" data-tsdhr="10.5" onclick="pick(this,'eventType')"><span class="lbl">🍡 Food &amp; Drink Festival</span><span class="sub">65% drinks · 35% food</span></button>
-        <button class="opt" data-base="0.15" data-drink="0.68" data-food="0.32" data-complexity="1.0" data-tsdhr="10.5" onclick="pick(this,'eventType')"><span class="lbl">🎑 Community / Other</span><span class="sub">Mixed · general public</span></button>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title"><span class="num">3</span> Location &amp; Guests</div>
-      <div class="field">
-        <label><strong>Proximity to Foot Traffic</strong></label>
-        <div class="options cols-3" id="proximity">
-          <button class="opt" data-val="1.0" onclick="pick(this,'proximity')"><span class="lbl">🌟 Prime</span><span class="sub">Main path</span></button>
-          <button class="opt" data-val="0.60" onclick="pick(this,'proximity')"><span class="lbl">🍃 Mid</span><span class="sub">Secondary area</span></button>
-          <button class="opt" data-val="0.28" onclick="pick(this,'proximity')"><span class="lbl">🌙 Fringe</span><span class="sub">Edge / corner</span></button>
-        </div>
-      </div>
-      <div class="field">
-        <label><strong>Primary Customer Type</strong></label>
-        <div class="options cols-2" id="customerType">
-          <button class="opt" data-val="1.3" data-drink-mod="0.0" data-food-mod="0.05" onclick="pick(this,'customerType')"><span class="lbl">👨‍👩‍👧 Families</span><span class="sub">More food items · group orders</span></button>
-          <button class="opt" data-val="1.2" data-drink-mod="0.05" data-food-mod="0.0" onclick="pick(this,'customerType')"><span class="lbl">🧑 Young Adults</span><span class="sub">Specialty drinks · Frappes</span></button>
-          <button class="opt" data-val="1.0" data-drink-mod="0.08" data-food-mod="0.0" onclick="pick(this,'customerType')"><span class="lbl">👔 Professionals</span><span class="sub">Coffee-forward · drip</span></button>
-          <button class="opt" data-val="0.8" data-drink-mod="0.0" data-food-mod="0.0" onclick="pick(this,'customerType')"><span class="lbl">🎓 Students</span><span class="sub">Budget-conscious</span></button>
-          <button class="opt" data-val="1.1" data-drink-mod="0.0" data-food-mod="0.0" onclick="pick(this,'customerType')"><span class="lbl">🌸 General Public</span><span class="sub">Mixed mix</span></button>
-          <button class="opt" data-val="1.4" data-drink-mod="0.1" data-food-mod="0.0" onclick="pick(this,'customerType')"><span class="lbl">🏯 Corporate / B2B</span><span class="sub">High coffee intent</span></button>
-          <button class="opt" data-val="1.35" data-drink-mod="-0.05" data-food-mod="0.2" onclick="pick(this,'customerType')"><span class="lbl">✝️ Religious / Faith</span><span class="sub">High food · Frappes · family groups</span></button>
-        </div>
-      </div>
-      <div class="field">
-        <label><strong>📱 Mobile &amp; Delivery Level</strong> — ~30% of your orders are MOP/DoorDash/Uber Eats normally</label>
-        <div class="options cols-3" id="mobileLevel">
-          <button class="opt active" data-mob="0.30" onclick="pick(this,'mobileLevel')"><span class="lbl">📱 Normal</span><span class="sub">~30% mobile/delivery</span></button>
-          <button class="opt" data-mob="0.40" onclick="pick(this,'mobileLevel')"><span class="lbl">📲 Elevated</span><span class="sub">~40% · busy event day</span></button>
-          <button class="opt" data-mob="0.50" onclick="pick(this,'mobileLevel')"><span class="lbl">🚀 Surge</span><span class="sub">~50% · nerd con / comp day</span></button>
-        </div>
-      </div>
-    </div>
-
-    <div id="resultsWrap">
-      <div class="results"><div class="empty" style="color:rgba(255,255,255,0.4)">🐱 fill in all sections above and i'll meow your estimate~ ↑</div></div>
-    </div>
-  </div>
-
-  <!-- ===== CRUISE MODE ===== -->
-  <div class="mode-section" id="cruiseMode">
-    <div class="card">
-      <div class="card-title"><span class="num">⚓</span> Ships Docking Today</div>
-      <p style="font-size:0.71rem;color:var(--gray);margin-bottom:14px;line-height:1.6;">Add every ship docking today — choose its pier. Data from your cruise planning sheet! 🚢</p>
-      <div id="shipStackList"><div class="empty-stack">No ships added yet — tap a size below ↓</div></div>
-      <div class="card-title" style="margin-top:16px;font-size:0.6rem;">➕ Add a Ship</div>
-      <div class="ship-grid">
-        <button class="ship-btn" onclick="addShip('sm')"><span class="s-icon">⛵</span><span class="s-name">Small Ship</span><span class="s-size">&lt;1,000 guests</span><span class="s-data">LY: 561 TSDs · 50 hrs</span></button>
-        <button class="ship-btn" onclick="addShip('mid')"><span class="s-icon">🚢</span><span class="s-name">Mid-Size Ship</span><span class="s-size">1,000–2,500 guests</span><span class="s-data">LY: 361 TSDs · 42.25 hrs</span></button>
-        <button class="ship-btn" onclick="addShip('lg')"><span class="s-icon">🛳️</span><span class="s-name">Large Ship</span><span class="s-size">2,500–4,000 guests</span><span class="s-data">LY: 610 TSDs · 50.75 hrs</span></button>
-        <button class="ship-btn" onclick="addShip('mega')"><span class="s-icon">🏙️</span><span class="s-name">Mega Ship</span><span class="s-size">4,000+ guests</span><span class="s-data">LY: 491 TSDs · 46.75 hrs</span></button>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-title"><span class="num">🏨</span> Hyatt Checkout</div>
-      <div class="options cols-2" id="hyattEffect">
-        <button class="opt active" data-val="0" onclick="pickOpt(this,'hyattEffect');calcCruise()"><span class="lbl">🛏️ No / Unknown</span></button>
-        <button class="opt" data-val="1" onclick="pickOpt(this,'hyattEffect');calcCruise()"><span class="lbl">✅ Yes — Hyatt checkout</span><span class="sub">+~40 morning TSDs · 10–11am</span></button>
-      </div>
-    </div>
-    <div id="cruiseResultsWrap">
-      <div class="cruise-results"><div class="empty" style="color:rgba(255,255,255,0.35)">🚢 add ships above to see your cruise day estimate~ ⚓</div></div>
-    </div>
-  </div>
-
-  <!-- ===== PARAMOUNT MODE ===== -->
-  <div class="mode-section" id="paramountMode">
-    <div class="card">
-      <div class="card-title"><span class="num">🎭</span> Show Type</div>
-      <div class="show-grid" id="showType">
-        <button class="show-btn" data-baseline="490" data-bonus="0" data-pattern="weeknight_one" onclick="pickParamount(this,'showType')"><span class="sh-icon">🌙</span><span class="sh-name">Weeknight · 1 Show</span><span class="sh-sub">Evening only · ~490 TSDs</span></button>
-        <button class="show-btn" data-baseline="490" data-bonus="45" data-pattern="weeknight_two" onclick="pickParamount(this,'showType')"><span class="sh-icon">🌙🌙</span><span class="sh-name">Weeknight · 2 Shows</span><span class="sh-sub">Two evening shows · ~535 TSDs</span></button>
-        <button class="show-btn" data-baseline="465" data-bonus="85" data-pattern="weekend_matinee" onclick="pickParamount(this,'showType')"><span class="sh-icon">☀️</span><span class="sh-name">Weekend · Matinee</span><span class="sh-sub">2pm show · noon lunch bump · ~550 TSDs</span></button>
-        <button class="show-btn" data-baseline="465" data-bonus="130" data-pattern="weekend_double" onclick="pickParamount(this,'showType')"><span class="sh-icon">✨</span><span class="sh-name">Weekend · 2 Shows</span><span class="sh-sub">Matinee + evening · ~595 TSDs</span></button>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-title"><span class="num">🎪</span> Show Details</div>
-      <div class="field">
-        <label><strong>Door Open Time</strong></label>
-        <div class="options cols-3" id="doorTime">
-          <button class="opt active" data-val="18" onclick="pickParamount(this,'doorTime')"><span class="lbl">6:00 PM</span></button>
-          <button class="opt" data-val="18.5" onclick="pickParamount(this,'doorTime')"><span class="lbl">6:30 PM</span></button>
-          <button class="opt" data-val="19" onclick="pickParamount(this,'doorTime')"><span class="lbl">7:00 PM</span></button>
-        </div>
-      </div>
-      <div class="field">
-        <label><strong>Run of Show</strong></label>
-        <div class="options cols-3" id="runWeek">
-          <button class="opt active" data-mult="1.15" onclick="pickParamount(this,'runWeek')"><span class="lbl">🆕 Opening</span><span class="sub">Week 1–2</span></button>
-          <button class="opt" data-mult="1.0" onclick="pickParamount(this,'runWeek')"><span class="lbl">📅 Mid-Run</span><span class="sub">Week 3–5</span></button>
-          <button class="opt" data-mult="0.9" onclick="pickParamount(this,'runWeek')"><span class="lbl">🎬 Closing</span><span class="sub">Final weeks</span></button>
-        </div>
-      </div>
-    </div>
-    <div id="paramountResultsWrap">
-      <div class="paramount-results"><div class="empty" style="color:rgba(255,255,255,0.3)">🎭 select a show type to see your estimate~ 🎶</div></div>
-    </div>
-  </div>
-
-  <!-- ===== SPORTS MODE ===== -->
-  <div class="mode-section" id="sportsMode">
-    <div class="card">
-      <div class="card-title"><span class="num">🏅</span> Competition Type</div>
-      <p style="font-size:0.71rem;color:var(--gray);margin-bottom:14px;line-height:1.6;">Amateur &amp; youth comps at Conv Ctr or Hyatt. <strong>⚠️ Cheer/dance/volleyball days are deceptive — low TSD count but avg ticket ~$25-35. Each TSD = 3-5 people ordering together.</strong></p>
-      <div class="options cols-2" id="sportType">
-        <button class="opt" data-tsd="608" data-hrs="56.25" data-iplh="20.2" data-tsdhr="9.0" data-pattern="sports_sat" onclick="pickSports(this,'sportType')"><span class="lbl">💃 Cheer / Dance / Gymnastics</span><span class="sub">SA 4/18 actual · 608 TSDs · IPLH 20.2 · avg ticket ~$30 · 9.0 TSD/hr</span></button>
-        <button class="opt" data-tsd="721" data-hrs="74" data-iplh="22.3" data-tsdhr="9.7" data-pattern="sports_sat" onclick="pickSports(this,'sportType')"><span class="lbl">🏐 Volleyball / Basketball Sat</span><span class="sub">LY: 721 TSDs · IPLH 22.3 · big group orders</span></button>
-        <button class="opt" data-tsd="899" data-hrs="88.5" data-iplh="28.1" data-tsdhr="10.2" data-pattern="sports_sun" onclick="pickSports(this,'sportType')"><span class="lbl">🏅 Comp Sunday · Finals</span><span class="sub">Busiest day · LY: 899 TSDs · IPLH 28.1</span></button>
-        <button class="opt" data-tsd="580" data-hrs="62" data-iplh="18.5" data-tsdhr="9.5" data-pattern="sports_wkday" onclick="pickSports(this,'sportType')"><span class="lbl">🤸 Midweek Comp</span><span class="sub">Weekday · ~580 TSDs · IPLH 18.5</span></button>
-        <button class="opt" data-tsd="840" data-hrs="86" data-iplh="25.0" data-tsdhr="9.8" data-pattern="sports_mlk" onclick="pickSports(this,'sportType')"><span class="lbl">🎉 Holiday Comp Weekend</span><span class="sub">MLK / Presidents Day · ~840 TSDs</span></button>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-title"><span class="num">🧋</span> Crowd &amp; Venue</div>
-      <div class="field">
-        <label><strong>Crowd Type</strong></label>
-        <div class="options cols-2" id="sportCrowd">
-          <button class="opt active" data-cold="0.72" data-food="0.35" data-complexity="1.35" onclick="pickSports(this,'sportCrowd')"><span class="lbl">💃 Cheer / Dance / Gymnastics</span><span class="sub">Frappes · refreshers · sausage egg · double smoked bacon · cake pops</span></button>
-          <button class="opt" data-cold="0.75" data-food="0.30" data-complexity="1.3" onclick="pickSports(this,'sportCrowd')"><span class="lbl">🏐 Volleyball / Basketball</span><span class="sub">75% cold · high food · big group orders</span></button>
-          <button class="opt" data-cold="0.70" data-food="0.25" data-complexity="1.15" onclick="pickSports(this,'sportCrowd')"><span class="lbl">🤼 Wrestling / Martial Arts</span><span class="sub">70% cold · moderate food</span></button>
-          <button class="opt" data-cold="0.72" data-food="0.28" data-complexity="1.1" onclick="pickSports(this,'sportCrowd')"><span class="lbl">🪭 Irish Dancing</span><span class="sub">72% cold · moderate food · family groups</span></button>
-        </div>
-      </div>
-      <div class="field">
-        <label><strong>Venue</strong></label>
-        <div class="options cols-2" id="sportProximity">
-          <button class="opt active" data-mult="1.0" onclick="pickSports(this,'sportProximity')"><span class="lbl">🏙️ Convention Center</span><span class="sub">Very close · high capture</span></button>
-          <button class="opt" data-mult="0.75" onclick="pickSports(this,'sportProximity')"><span class="lbl">🏨 Hyatt Regency</span><span class="sub">Nearby · good capture</span></button>
-        </div>
-      </div>
-    </div>
-    <div id="sportsResultsWrap">
-      <div class="sports-results"><div class="empty" style="color:rgba(255,255,255,0.3)">🏅 select a competition type to see your estimate~ 🧋</div></div>
-    </div>
-  </div>
-
-  <!-- ===== STACK MODE ===== -->
-  <div class="mode-section" id="stackMode">
-    <div class="card">
-      <div class="card-title"><span class="num">📦</span> Stack Your Events</div>
-      <div id="stackEventList"><div class="empty-stack">No events added yet.<br>Tap below to add ↓</div></div>
-      <div class="card-title" style="margin-top:16px;font-size:0.6rem;">➕ Add an Event</div>
-      <div class="add-event-grid">
-        <button class="add-evt-btn" onclick="stackAdd('conv_sm')"><span class="aeb-icon">🎌</span><div class="aeb-text">Convention · Small<br><span class="aeb-sub">~150 lift · trade / expo</span></div></button>
-        <button class="add-evt-btn" onclick="stackAdd('conv_lg')"><span class="aeb-icon">🎌</span><div class="aeb-text">Convention · Large<br><span class="aeb-sub">~300 lift · Sakura-Con scale</span></div></button>
-        <button class="add-evt-btn" onclick="stackAdd('conv_medical')"><span class="aeb-icon">🩺</span><div class="aeb-text">Medical Convention<br><span class="aeb-sub">Drip coffee · fast · great IPLH</span></div></button>
-        <button class="add-evt-btn" onclick="stackAdd('conv_dental')"><span class="aeb-icon">🦷</span><div class="aeb-text">Dental Convention<br><span class="aeb-sub">Sugary drinks · pastries · medium complexity</span></div></button>
-        <button class="add-evt-btn" onclick="stackAdd('conv_nerd')"><span class="aeb-icon">🎮</span><div class="aeb-text">Nerd / Comic Con<br><span class="aeb-sub">Frappes · sandwiches · cake pops · 9.2 TSD/hr</span></div></button>
-        <button class="add-evt-btn" onclick="stackAdd('cruise_p66_sm')"><span class="aeb-icon">⛵</span><div class="aeb-text">Cruise Small · P66<br><span class="aeb-sub">LY 561 TSDs · walkable</span></div></button>
-        <button class="add-evt-btn" onclick="stackAdd('cruise_p66_mid')"><span class="aeb-icon">🚢</span><div class="aeb-text">Cruise Mid · P66<br><span class="aeb-sub">LY 361 TSDs · walkable</span></div></button>
-        <button class="add-evt-btn" onclick="stackAdd('cruise_p66_lg')"><span class="aeb-icon">🛳️</span><div class="aeb-text">Cruise Large · P66<br><span class="aeb-sub">LY 610 TSDs · walkable</span></div></button>
-        <button class="add-evt-btn" onclick="stackAdd('cruise_p66_mega')"><span class="aeb-icon">🏙️</span><div class="aeb-text">Cruise Mega · P66<br><span class="aeb-sub">LY 491 TSDs · walkable</span></div></button>
-        <button class="add-evt-btn" onclick="stackAdd('cruise_p91_sm')"><span class="aeb-icon">⛵</span><div class="aeb-text">Cruise Small · P91<br><span class="aeb-sub">LY 561 × 55% · Smith Cove</span></div></button>
-        <button class="add-evt-btn" onclick="stackAdd('cruise_p91_mid')"><span class="aeb-icon">🚢</span><div class="aeb-text">Cruise Mid · P91<br><span class="aeb-sub">LY 361 × 55% · Smith Cove</span></div></button>
-        <button class="add-evt-btn" onclick="stackAdd('cruise_p91_lg')"><span class="aeb-icon">🛳️</span><div class="aeb-text">Cruise Large · P91<br><span class="aeb-sub">LY 610 × 55% · Smith Cove</span></div></button>
-        <button class="add-evt-btn" onclick="stackAdd('cruise_p91_mega')"><span class="aeb-icon">🏙️</span><div class="aeb-text">Cruise Mega · P91<br><span class="aeb-sub">LY 491 × 55% · Smith Cove</span></div></button>
-        <button class="add-evt-btn" onclick="stackAdd('show_matinee')"><span class="aeb-icon">☀️</span><div class="aeb-text">Musical · Matinee<br><span class="aeb-sub">Paramount · noon lift</span></div></button>
-        <button class="add-evt-btn" onclick="stackAdd('show_evening')"><span class="aeb-icon">🌙</span><div class="aeb-text">Musical · Evening<br><span class="aeb-sub">Paramount · pre-show lift</span></div></button>
-        <button class="add-evt-btn" onclick="stackAdd('comp_cheer')"><span class="aeb-icon">💃</span><div class="aeb-text">Comp · Cheer / Dance<br><span class="aeb-sub">4/18 actual · 9.0 TSD/hr · high ticket</span></div></button>
-        <button class="add-evt-btn" onclick="stackAdd('comp_vball')"><span class="aeb-icon">🏐</span><div class="aeb-text">Comp · Volleyball Sat<br><span class="aeb-sub">LY 721 TSDs · IPLH 22.3</span></div></button>
-        <button class="add-evt-btn" onclick="stackAdd('comp_sun')"><span class="aeb-icon">🏅</span><div class="aeb-text">Comp · Sun Finals<br><span class="aeb-sub">LY 899 TSDs · IPLH 28.1</span></div></button>
-        <button class="add-evt-btn" onclick="stackAdd('hyatt_checkout')"><span class="aeb-icon">🏨</span><div class="aeb-text">Hyatt Checkout<br><span class="aeb-sub">+40 morning TSDs</span></div></button>
-        <button class="add-evt-btn" onclick="stackAdd('holiday')"><span class="aeb-icon">🎉</span><div class="aeb-text">Holiday (MLK/Easter)<br><span class="aeb-sub">Adjusts baseline down</span></div></button>
-      </div>
-    </div>
-    <div id="stackResultsWrap">
-      <div class="stack-results"><div class="empty" style="color:rgba(255,255,255,0.3)">📦 add events above to stack your day~ 🐱</div></div>
-    </div>
-  </div>
-
-  <!-- ===== PLANNER MODE ===== -->
-  <div class="mode-section" id="plannerMode">
-    <div class="card">
-      <div class="card-title"><span class="num">📅</span> Build Your Week</div>
-      <p style="font-size:0.72rem;color:var(--gray);margin-bottom:16px;line-height:1.6;">Tap events for each day. Projects TSDs and earned hours from real store data — no rule of 200 needed 🐱</p>
-      <div class="week-grid" id="weekGrid"></div>
-    </div>
-    <div id="plannerResultsWrap">
-      <div class="planner-results"><div class="empty" style="color:rgba(255,255,255,0.3)">📅 select events above~ 🐱</div></div>
-    </div>
+<header>
+  <div class="logo">🐱</div>
+  <div><h1>Neko Café · Estimator ✨</h1><p>☕ 03298 7th &amp; Pike · build your day</p></div>
+</header>
+<div class="mode-toggle-wrap">
+  <div class="mode-toggle">
+    <button class="mode-btn active" id="btnEvent" onclick="switchMode('event')">🎪<br>Event</button>
+    <button class="mode-btn" id="btnCruise" onclick="switchMode('cruise')">🚢<br>Cruise</button>
+    <button class="mode-btn" id="btnParamount" onclick="switchMode('paramount')">🎭<br>Paramount</button>
+    <button class="mode-btn" id="btnSports" onclick="switchMode('sports')">🏅<br>Comps</button>
+    <button class="mode-btn" id="btnPlanner" onclick="switchMode('planner')">📅<br>Planner</button>
+    <button class="mode-btn summary-btn" id="btnSummary" onclick="switchMode('summary')">📊<br>Summary</button>
   </div>
 </div>
-
+<!-- EVENT MODE -->
+<div class="mode-section visible" id="eventMode">
+  <div class="alert-banner alert-blue" style="margin-bottom:12px;">💡 Fill in each tab — then check <strong>Summary</strong> to see everything combined!</div>
+  <div class="card">
+    <div class="card-title"><span class="num">1</span> Event Basics</div>
+    <div class="field"><label><strong>Estimated Attendance</strong></label><input type="number" id="attendance" placeholder="e.g. 5000" min="0" oninput="calc()"></div>
+    <div class="field"><label><strong>Duration</strong> (hours)</label><input type="number" id="duration" placeholder="8" min="1" max="24" value="8" oninput="calc()"></div>
+    <div class="field"><label><strong>Start Hour</strong> (24hr — e.g. 8 = 8am)</label><input type="number" id="startHour" placeholder="8" min="0" max="23" value="8" oninput="calc()"></div>
+    <div class="field">
+      <label><strong>Day Type</strong></label>
+      <div class="options cols-2" id="dayType">
+        <button class="opt active" data-val="single" data-daymult="1.0" onclick="pick(this,'dayType')"><span class="lbl">🌸 Single Day</span><span class="sub">Full event</span></button>
+        <button class="opt" data-val="arrival" data-daymult="0.18" onclick="pick(this,'dayType')"><span class="lbl">🚂 Arrival Day</span><span class="sub">~18% · Day 1</span></button>
+        <button class="opt" data-val="building" data-daymult="0.60" onclick="pick(this,'dayType')"><span class="lbl">📈 Building Day</span><span class="sub">~60% · Day 2</span></button>
+        <button class="opt" data-val="peak" data-daymult="1.0" onclick="pick(this,'dayType')"><span class="lbl">⭐ Peak Day</span><span class="sub">100% · busiest</span></button>
+        <button class="opt" data-val="tapering" data-daymult="0.80" onclick="pick(this,'dayType')"><span class="lbl">📉 Tapering Day</span><span class="sub">~80% · after peak</span></button>
+        <button class="opt" data-val="prefinal" data-daymult="0.65" onclick="pick(this,'dayType')"><span class="lbl">🌅 Pre-Final Day</span><span class="sub">~65% · winding down</span></button>
+        <button class="opt" data-val="final" data-daymult="0.72" onclick="pick(this,'dayType')"><span class="lbl">🎐 Final Day</span><span class="sub">~72% · front-loaded</span></button>
+        <button class="opt" data-val="custom" data-daymult="1.0" onclick="pick(this,'dayType');showCustomDay()"><span class="lbl">🗓 Custom Day X of Y</span><span class="sub">Enter which day</span></button>
+      </div>
+      <div id="customDayWrap" style="display:none;margin-top:10px;background:var(--light);border-radius:10px;padding:12px;">
+        <label><strong>Which day of the run?</strong></label>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;">
+          <div><label>Day number</label><input type="number" id="customDayNum" min="1" max="30" placeholder="3" oninput="calcCustomDay()"></div>
+          <div><label>Total days</label><input type="number" id="customDayTotal" min="1" max="30" placeholder="5" oninput="calcCustomDay()"></div>
+        </div>
+        <div id="customDayResult" style="font-size:0.72rem;color:var(--dark);margin-top:8px;font-weight:600;"></div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title"><span class="num">2</span> Event Type</div>
+    <div class="options cols-2" id="eventType">
+      <button class="opt" data-base="0.019" data-drink="0.70" data-food="0.30" data-complexity="1.0" data-tsdhr="10.5" onclick="pick(this,'eventType')"><span class="lbl">🏮 Festival / Fair</span><span class="sub">70% drinks · 30% food</span></button>
+      <button class="opt" data-base="0.016" data-drink="0.75" data-food="0.25" data-complexity="1.0" data-tsdhr="10.5" onclick="pick(this,'eventType')"><span class="lbl">🎶 Music / Concert</span><span class="sub">75% drinks · 25% food</span></button>
+      <button class="opt" data-base="0.0147" data-drink="0.80" data-food="0.20" data-complexity="1.0" data-tsdhr="10.5" onclick="pick(this,'eventType')"><span class="lbl">🏯 Trade / Convention</span><span class="sub">80% drinks · 20% food</span></button>
+      <button class="opt" data-base="0.012" data-drink="0.85" data-food="0.15" data-complexity="0.85" data-tsdhr="11.5" data-menu="medical" onclick="pick(this,'eventType')"><span class="lbl">🩺 Medical Convention</span><span class="sub">Drip coffee · fast · great IPLH</span></button>
+      <button class="opt" data-base="0.014" data-drink="0.60" data-food="0.40" data-complexity="1.2" data-tsdhr="10.0" data-menu="dental" onclick="pick(this,'eventType')"><span class="lbl">🦷 Dental Convention</span><span class="sub">Sugary drinks · pastries · medium complexity</span></button>
+      <button class="opt" data-base="0.018" data-drink="0.55" data-food="0.45" data-complexity="1.45" data-tsdhr="9.2" data-menu="nerd" onclick="pick(this,'eventType')"><span class="lbl">🎮 Nerd / Comic Con</span><span class="sub">Frappes · brownies · cookies · sandwiches · cake pops</span></button>
+      <button class="opt" data-base="0.022" data-drink="0.55" data-food="0.45" data-complexity="1.5" data-tsdhr="9.0" data-menu="religious" onclick="pick(this,'eventType')"><span class="lbl">✝️ Religious / Faith Event</span><span class="sub">EVERYTHING · highest food attach · very high complexity</span></button>
+      <button class="opt" data-base="0.15" data-drink="0.68" data-food="0.32" data-complexity="1.0" data-tsdhr="10.5" onclick="pick(this,'eventType')"><span class="lbl">🎍 Community / Other</span><span class="sub">Mixed · general public</span></button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title"><span class="num">3</span> Location &amp; Guests</div>
+    <div class="field">
+      <label><strong>Proximity to Foot Traffic</strong></label>
+      <div class="options cols-3" id="proximity">
+        <button class="opt" data-val="1.0" onclick="pick(this,'proximity')"><span class="lbl">🌟 Prime</span><span class="sub">Main path</span></button>
+        <button class="opt" data-val="0.60" onclick="pick(this,'proximity')"><span class="lbl">🍃 Mid</span><span class="sub">Secondary</span></button>
+        <button class="opt" data-val="0.28" onclick="pick(this,'proximity')"><span class="lbl">🌙 Fringe</span><span class="sub">Edge / corner</span></button>
+      </div>
+    </div>
+    <div class="field">
+      <label><strong>Customer Type</strong></label>
+      <div class="options cols-2" id="customerType">
+        <button class="opt" data-val="1.3" data-drink-mod="0.0" data-food-mod="0.05" onclick="pick(this,'customerType')"><span class="lbl">👪 Families</span><span class="sub">Group orders · food heavy</span></button>
+        <button class="opt" data-val="1.2" data-drink-mod="0.05" data-food-mod="0.0" onclick="pick(this,'customerType')"><span class="lbl">🧑 Young Adults</span><span class="sub">Specialty drinks · Frappes</span></button>
+        <button class="opt" data-val="1.0" data-drink-mod="0.08" data-food-mod="0.0" onclick="pick(this,'customerType')"><span class="lbl">👔 Professionals</span><span class="sub">Coffee-forward · drip</span></button>
+        <button class="opt" data-val="0.8" data-drink-mod="0.0" data-food-mod="0.0" onclick="pick(this,'customerType')"><span class="lbl">🎓 Students</span><span class="sub">Budget-conscious</span></button>
+        <button class="opt" data-val="1.1" data-drink-mod="0.0" data-food-mod="0.0" onclick="pick(this,'customerType')"><span class="lbl">🌸 General Public</span><span class="sub">Mixed mix</span></button>
+        <button class="opt" data-val="1.4" data-drink-mod="0.1" data-food-mod="0.0" onclick="pick(this,'customerType')"><span class="lbl">🏯 Corporate / B2B</span><span class="sub">High coffee intent</span></button>
+      </div>
+    </div>
+    <div class="field">
+      <label><strong>📱 Mobile &amp; Delivery Level</strong> — ~30% of orders are MOP/DoorDash/Uber Eats normally</label>
+      <div class="options cols-3" id="mobileLevel">
+        <button class="opt active" data-mob="0.30" onclick="pick(this,'mobileLevel')"><span class="lbl">📱 Normal</span><span class="sub">~30%</span></button>
+        <button class="opt" data-mob="0.40" onclick="pick(this,'mobileLevel')"><span class="lbl">📲 Elevated</span><span class="sub">~40%</span></button>
+        <button class="opt" data-mob="0.50" onclick="pick(this,'mobileLevel')"><span class="lbl">🚀 Surge</span><span class="sub">~50%</span></button>
+      </div>
+    </div>
+  </div>
+  <div id="resultsWrap"><div class="result-card green"><div class="empty">🐱 fill in all sections above~<br><br>Then check <strong>Summary</strong> to combine with cruise, shows, and comps!</div></div></div>
+</div>
+<!-- CRUISE MODE -->
+<div class="mode-section" id="cruiseMode">
+  <div class="alert-banner alert-blue" style="margin-bottom:12px;">💡 Add ships — they appear in <strong>Summary</strong> automatically!</div>
+  <div class="card">
+    <div class="card-title"><span class="num">⚓</span> Ships Docking Today</div>
+    <p style="font-size:0.71rem;color:var(--gray);margin-bottom:14px;line-height:1.6;">Real impact: <strong>10am–12pm</strong> when passengers hit downtown. Add every ship and choose its pier. 🚢</p>
+    <div id="shipStackList"><div class="empty" style="padding:16px;">No ships added — tap a size below ↓</div></div>
+    <div class="card-title" style="margin-top:12px;font-size:0.6rem;">➕ Add a Ship</div>
+    <div class="ship-grid">
+      <button class="ship-btn" onclick="addShip('sm')"><span class="s-icon">⛵</span><span class="s-name">Small Ship</span><span class="s-size">&lt;1,000 guests</span><span class="s-data">LY: 561 TSDs · 50 hrs</span></button>
+      <button class="ship-btn" onclick="addShip('mid')"><span class="s-icon">🚢</span><span class="s-name">Mid-Size Ship</span><span class="s-size">1,000–2,500 guests</span><span class="s-data">LY: 361 TSDs · 42.25 hrs</span></button>
+      <button class="ship-btn" onclick="addShip('lg')"><span class="s-icon">🛳</span><span class="s-name">Large Ship</span><span class="s-size">2,500–4,000 guests</span><span class="s-data">LY: 610 TSDs · 50.75 hrs</span></button>
+      <button class="ship-btn" onclick="addShip('mega')"><span class="s-icon">🏙</span><span class="s-name">Mega Ship</span><span class="s-size">4,000+ guests</span><span class="s-data">LY: 491 TSDs · 46.75 hrs</span></button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title"><span class="num">🏨</span> Hyatt Checkout Overlap?</div>
+    <div class="options cols-2" id="hyattEffect">
+      <button class="opt active" data-val="0" onclick="pickOpt(this,'hyattEffect');calcCruise()"><span class="lbl">🛏 No / Unknown</span></button>
+      <button class="opt" data-val="1" onclick="pickOpt(this,'hyattEffect');calcCruise()"><span class="lbl">✅ Yes — Hyatt checkout</span><span class="sub">+~40 morning TSDs · 10–11am</span></button>
+    </div>
+  </div>
+  <div id="cruiseResultsWrap"><div class="result-card green"><div class="empty">🚢 add ships above~<br>They will appear in <strong>Summary</strong> automatically!</div></div></div>
+</div>
+<!-- PARAMOUNT MODE -->
+<div class="mode-section" id="paramountMode">
+  <div class="alert-banner alert-blue" style="margin-bottom:12px;">💡 Select your show — appears in <strong>Summary</strong> automatically!</div>
+  <div class="card">
+    <div class="card-title"><span class="num">🎭</span> Show Type</div>
+    <div class="options cols-2" id="showType">
+      <button class="show-btn" data-baseline="490" data-bonus="35" data-pattern="weeknight_one" onclick="pickParamount(this,'showType')"><span class="sh-icon">🌙</span><span class="sh-name">Weeknight · 1 Show</span><span class="sh-sub">~525 TSDs · pre-show spike only · no morning impact</span></button>
+      <button class="show-btn" data-baseline="490" data-bonus="60" data-pattern="weeknight_two" onclick="pickParamount(this,'showType')"><span class="sh-icon">🌙🌙</span><span class="sh-name">Weeknight · 2 Shows</span><span class="sh-sub">~550 TSDs · bigger evening window</span></button>
+      <button class="show-btn" data-baseline="465" data-bonus="40" data-pattern="weekend_matinee" onclick="pickParamount(this,'showType')"><span class="sh-icon">☀️</span><span class="sh-name">Weekend · Matinee</span><span class="sh-sub">~505 TSDs · 11am–1pm bump only · no evening impact</span></button>
+      <button class="show-btn" data-baseline="465" data-bonus="75" data-pattern="weekend_double" onclick="pickParamount(this,'showType')"><span class="sh-icon">✨</span><span class="sh-name">Weekend · 2 Shows</span><span class="sh-sub">~540 TSDs · noon bump + evening spike</span></button>
+      <button class="show-btn" data-baseline="0" data-bonus="0" data-pattern="none" onclick="pickParamount(this,'showType')"><span class="sh-icon">🚫</span><span class="sh-name">No Show Today</span><span class="sh-sub">Clear Paramount from Summary</span></button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title"><span class="num">🎪</span> Show Details</div>
+    <div class="field">
+      <label><strong>Evening Door Time</strong></label>
+      <div class="options cols-3" id="doorTime">
+        <button class="opt active" data-val="18" onclick="pickParamount(this,'doorTime')"><span class="lbl">6:00 PM</span></button>
+        <button class="opt" data-val="18.5" onclick="pickParamount(this,'doorTime')"><span class="lbl">6:30 PM</span></button>
+        <button class="opt" data-val="19" onclick="pickParamount(this,'doorTime')"><span class="lbl">7:00 PM</span></button>
+      </div>
+    </div>
+    <div class="field" id="matineeDoorWrap" style="display:none;">
+      <label><strong>Matinee Door Time</strong> <span style="font-size:0.65rem;color:var(--gray);">(2-show weekend)</span></label>
+      <div class="options cols-3" id="matineeDoorTime">
+        <button class="opt" data-val="13" onclick="pickParamount(this,'matineeDoorTime')"><span class="lbl">1:00 PM</span></button>
+        <button class="opt active" data-val="13.5" onclick="pickParamount(this,'matineeDoorTime')"><span class="lbl">1:30 PM</span></button>
+        <button class="opt" data-val="14" onclick="pickParamount(this,'matineeDoorTime')"><span class="lbl">2:00 PM</span></button>
+      </div>
+    </div>
+    <div class="field">
+      <label><strong>Run of Show</strong></label>
+      <div class="options cols-3" id="runWeek">
+        <button class="opt active" data-mult="1.15" onclick="pickParamount(this,'runWeek')"><span class="lbl">🆕 Opening</span><span class="sub">Week 1–2</span></button>
+        <button class="opt" data-mult="1.0" onclick="pickParamount(this,'runWeek')"><span class="lbl">📅 Mid-Run</span></button>
+        <button class="opt" data-mult="0.9" onclick="pickParamount(this,'runWeek')"><span class="lbl">🎬 Closing</span></button>
+      </div>
+    </div>
+  </div>
+  <div id="paramountResultsWrap"><div class="result-card purple"><div class="empty">🎭 select a show~<br>Appears in <strong>Summary</strong> automatically!</div></div></div>
+</div>
+<!-- SPORTS MODE -->
+<div class="mode-section" id="sportsMode">
+  <div class="alert-banner alert-blue" style="margin-bottom:12px;">💡 Select comp type — appears in <strong>Summary</strong> automatically!</div>
+  <div class="card">
+    <div class="card-title"><span class="num">🏅</span> Competition Type</div>
+    <p style="font-size:0.71rem;color:var(--gray);margin-bottom:14px;line-height:1.6;">⚠️ <strong>Cheer/dance days are deceptive</strong> — avg ticket ~$25-35. Each TSD = 3-5 people ordering together.</p>
+    <div class="options cols-2" id="sportType">
+      <button class="opt" data-tsd="608" data-hrs="56.25" data-iplh="20.2" data-tsdhr="9.0" data-pattern="cheer" onclick="pickSports(this,'sportType')"><span class="lbl">💃 Cheer / Dance / Gymnastics</span><span class="sub">SA 4/18 actual · 608 TSDs · IPLH 20.2 · avg ticket ~$30</span></button>
+      <button class="opt" data-tsd="721" data-hrs="74" data-iplh="22.3" data-tsdhr="9.7" data-pattern="sports_sat" onclick="pickSports(this,'sportType')"><span class="lbl">🏐 Volleyball / Basketball Sat</span><span class="sub">LY: 721 TSDs · IPLH 22.3</span></button>
+      <button class="opt" data-tsd="899" data-hrs="88.5" data-iplh="28.1" data-tsdhr="10.2" data-pattern="sports_sun" onclick="pickSports(this,'sportType')"><span class="lbl">🏅 Comp Sunday · Finals</span><span class="sub">LY: 899 TSDs · IPLH 28.1 · busiest</span></button>
+      <button class="opt" data-tsd="580" data-hrs="62" data-iplh="18.5" data-tsdhr="9.5" data-pattern="sports_wkday" onclick="pickSports(this,'sportType')"><span class="lbl">🤸 Midweek Comp</span><span class="sub">~580 TSDs · IPLH 18.5</span></button>
+      <button class="opt" data-tsd="840" data-hrs="86" data-iplh="25.0" data-tsdhr="9.8" data-pattern="sports_mlk" onclick="pickSports(this,'sportType')"><span class="lbl">🎉 Holiday Comp Weekend</span><span class="sub">MLK / Presidents Day · ~840 TSDs</span></button>
+      <button class="opt" data-tsd="0" data-hrs="0" data-iplh="0" data-tsdhr="10.5" data-pattern="none" onclick="pickSports(this,'sportType')"><span class="lbl">🚫 No Comp Today</span><span class="sub">Clear from Summary</span></button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title"><span class="num">🧋</span> Crowd &amp; Venue</div>
+    <div class="field">
+      <label><strong>Crowd Type</strong></label>
+      <div class="options cols-2" id="sportCrowd">
+        <button class="opt active" data-cold="0.72" data-food="0.35" data-complexity="1.35" onclick="pickSports(this,'sportCrowd')"><span class="lbl">💃 Cheer / Dance / Gymnastics</span><span class="sub">Frappes · refreshers · sausage egg · double smoked bacon · cake pops</span></button>
+        <button class="opt" data-cold="0.75" data-food="0.30" data-complexity="1.3" onclick="pickSports(this,'sportCrowd')"><span class="lbl">🏐 Volleyball / Basketball</span><span class="sub">75% cold · high food · big group orders</span></button>
+        <button class="opt" data-cold="0.70" data-food="0.25" data-complexity="1.15" onclick="pickSports(this,'sportCrowd')"><span class="lbl">🤼 Wrestling / Martial Arts</span><span class="sub">70% cold · moderate food</span></button>
+        <button class="opt" data-cold="0.72" data-food="0.28" data-complexity="1.1" onclick="pickSports(this,'sportCrowd')"><span class="lbl">🪹 Irish Dancing</span><span class="sub">72% cold · family groups</span></button>
+      </div>
+    </div>
+    <div class="field">
+      <label><strong>Venue</strong></label>
+      <div class="options cols-2" id="sportProximity">
+        <button class="opt active" data-mult="1.0" onclick="pickSports(this,'sportProximity')"><span class="lbl">🏙 Convention Center</span><span class="sub">Very close · high capture</span></button>
+        <button class="opt" data-mult="0.75" onclick="pickSports(this,'sportProximity')"><span class="lbl">🏨 Hyatt Regency</span><span class="sub">Nearby · good capture</span></button>
+      </div>
+    </div>
+  </div>
+  <div id="sportsResultsWrap"><div class="result-card teal"><div class="empty">🏅 select a competition type~<br>Appears in <strong>Summary</strong> automatically!</div></div></div>
+</div>
+<!-- PLANNER MODE -->
+<div class="mode-section" id="plannerMode">
+  <div class="card">
+    <div class="card-title"><span class="num">📅</span> Build Your Week</div>
+    <p style="font-size:0.72rem;color:var(--gray);margin-bottom:16px;line-height:1.6;">Tap events for each day. Projects TSDs and earned hours from real store data — no rule of 200 needed 🐱</p>
+    <div class="week-grid" id="weekGrid"></div>
+  </div>
+  <div id="plannerResultsWrap"><div class="result-card summary"><div class="empty">📅 select events above~</div></div></div>
+</div>
+<!-- SUMMARY MODE -->
+<div class="mode-section" id="summaryMode">
+  <div id="summaryContent"><div class="result-card summary"><div class="empty">📊 Fill in any tabs above and come back here!<br><br>Event + Cruise + Paramount + Comps all combined in one place. 🐱☕</div></div></div>
+</div>
+</div>
 <script>
-// ===== HELPERS =====
+const G={
+  event:{active:false,tsd:0,earned:0,label:"",menuType:null,mobileLevel:0.30,complexity:1.0,tsdHr:10.5,drinkPct:0.70,foodPct:0.30,startHour:8,duration:8,dayType:"single"},
+  cruise:{active:false,tsd:0,earned:0,ships:[],hyatt:false,amTsd:0,pmTsd:0},
+  paramount:{active:false,tsd:0,earned:0,label:"",pattern:"none",doorTime:18,matineeDoor:13.5,amTsd:0,middayTsd:0,pmTsd:0,eveTsd:0},
+  sports:{active:false,tsd:0,earned:0,label:"",iplh:0,tsdHr:9.0,pattern:"none",cold:0.72,food:0.35,isCheer:false}
+};
+
 function switchMode(m){
-  ['event','cruise','paramount','planner','sports','stack'].forEach(n=>{
-    const s=document.getElementById(n+'Mode'), b=document.getElementById('btn'+n[0].toUpperCase()+n.slice(1));
-    if(s) s.classList.toggle('visible',n===m);
-    if(b) b.classList.toggle('active',n===m);
+  ["event","cruise","paramount","sports","planner","summary"].forEach(n=>{
+    const s=document.getElementById(n+"Mode"),b=document.getElementById("btn"+n[0].toUpperCase()+n.slice(1));
+    if(s)s.classList.toggle("visible",n===m);
+    if(b)b.classList.toggle("active",n===m);
   });
+  if(m==="summary")buildSummary();
 }
-function pickOpt(btn,group){
-  document.querySelectorAll('#'+group+' .opt').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-}
+function pickOpt(btn,group){document.querySelectorAll("#"+group+" .opt").forEach(b=>b.classList.remove("active"));btn.classList.add("active");}
+
 function buildChart(dist,total,startHour,colors){
   const max=Math.max(...dist.map(d=>Math.round(d*total)));
+  if(!max)return"";
   const bars=dist.map((d,i)=>{
-    const tx=Math.round(d*total), h=Math.max(Math.round((tx/max)*140),3);
-    const hr=Math.floor(startHour+i*0.5)%24, isHalf=i%2===1;
-    const lbl=!isHalf?(hr===0?'12a':hr<12?hr+'a':hr===12?'12p':(hr-12)+'p'):'';
-    const col=Array.isArray(colors)?colors[Math.min(i,colors.length-1)]:colors;
-    return `<div class="chart-bar-wrap"><div class="chart-tip">${tx}</div><div class="chart-bar" style="height:${h}px;background:${col};border-radius:4px 4px 0 0;"></div><div class="chart-label">${lbl}</div></div>`;
-  }).join('');
-  return `<div class="chart-wrap"><div class="y-axis"><div class="y-label">${max}</div><div class="y-label">${Math.round(max/2)}</div><div class="y-label">0</div></div>${bars}</div>`;
+    const tx=Math.round(d*total),h=Math.max(Math.round((tx/max)*140),3);
+    const hr=Math.floor(startHour+i*0.5)%24,half=i%2===1;
+    const lbl=!half?(hr===0?"12a":hr<12?hr+"a":hr===12?"12p":(hr-12)+"p"):"";
+    const col=Array.isArray(colors)?colors[Math.min(i,colors.length-1)]:(colors||"#00704A");
+    return`<div class="chart-bar-wrap"><div class="chart-tip">${tx}</div><div class="chart-bar" style="height:${h}px;background:${col};border-radius:4px 4px 0 0;"></div><div class="chart-label">${lbl}</div></div>`;
+  }).join("");
+  return`<div class="chart-wrap"><div class="y-axis"><div class="y-label">${max}</div><div class="y-label">${Math.round(max/2)}</div><div class="y-label">0</div></div>${bars}</div>`;
 }
 
-// ===== EVENT MODE =====
-const evSt = { attendance:null, duration:8, startHour:8, dayType:'single', dayMult:1.0, eventBase:null, drinkSplit:null, foodSplit:null, proximity:null, custMult:null, drinkMod:0, foodMod:0, complexity:1.0, tsdHr:10.5, mobileLevel:0.30, menuType:null };
+const evSt={attendance:null,duration:8,startHour:8,dayType:"single",dayMult:1.0,eventBase:null,drinkSplit:null,foodSplit:null,proximity:null,custMult:null,drinkMod:0,foodMod:0,complexity:1.0,tsdHr:10.5,mobileLevel:0.30,menuType:null,customMult:1.0};
 
 function pick(btn,group){
   pickOpt(btn,group);
-  if(group==='eventType'){
-    evSt.eventBase=parseFloat(btn.dataset.base);
-    evSt.drinkSplit=parseFloat(btn.dataset.drink);
-    evSt.foodSplit=parseFloat(btn.dataset.food);
-    evSt.complexity=parseFloat(btn.dataset.complexity||1.0);
-    evSt.tsdHr=parseFloat(btn.dataset.tsdhr||10.5);
-    evSt.menuType=btn.dataset.menu||null;
-  } else if(group==='customerType'){
-    evSt.custMult=parseFloat(btn.dataset.val);
-    evSt.drinkMod=parseFloat(btn.dataset.drinkMod||0);
-    evSt.foodMod=parseFloat(btn.dataset.foodMod||0);
-  } else if(group==='proximity'){ evSt.proximity=parseFloat(btn.dataset.val);
-  } else if(group==='dayType'){ evSt.dayType=btn.dataset.val; evSt.dayMult=parseFloat(btn.dataset.daymult||1.0);
-  } else if(group==='mobileLevel'){ evSt.mobileLevel=parseFloat(btn.dataset.mob||0.30); }
+  if(group==="eventType"){evSt.eventBase=parseFloat(btn.dataset.base);evSt.drinkSplit=parseFloat(btn.dataset.drink);evSt.foodSplit=parseFloat(btn.dataset.food);evSt.complexity=parseFloat(btn.dataset.complexity||1.0);evSt.tsdHr=parseFloat(btn.dataset.tsdhr||10.5);evSt.menuType=btn.dataset.menu||null;}
+  else if(group==="customerType"){evSt.custMult=parseFloat(btn.dataset.val);evSt.drinkMod=parseFloat(btn.dataset.drinkMod||0);evSt.foodMod=parseFloat(btn.dataset.foodMod||0);}
+  else if(group==="proximity")evSt.proximity=parseFloat(btn.dataset.val);
+  else if(group==="dayType"){evSt.dayType=btn.dataset.val;evSt.dayMult=parseFloat(btn.dataset.daymult||1.0);}
+  else if(group==="mobileLevel")evSt.mobileLevel=parseFloat(btn.dataset.mob||0.30);
   calc();
 }
 
-function menuAlert(t,total){
-  if(!t) return '';
-  if(t==='medical') return `<div class="alert-banner alert-green">🩺 <strong>Medical Convention:</strong> Drip coffee, Americanos, simple lattes dominate. Stock drip stations. Fast throughput — expect strong IPLH ~11-12. Great productivity day! Pre-stock drip supplies.</div>`;
-  if(t==='dental') return `<div class="alert-banner alert-gold">🦷 <strong>Dental Convention:</strong> Ironic but real — expect sugary drinks (caramel macchiatos, Frappes, sweet refreshers), pastries, cookies, brownies. IPLH ~16-18. Pre-stock sweet syrups and pastry case.</div>`;
-  if(t==='nerd') return `<div class="alert-banner alert-gold">🎮 <strong>Nerd/Comic Con:</strong> Frappes (all flavors), cookies, brownies, sausage egg sandwiches, double smoked bacon sandwiches, cake pops. IPLH ~18-22. Pre-stock food case and cold bar. Cosplay groups order for 4-8 people at once!</div>`;
-  return '';
+function showCustomDay(){const w=document.getElementById("customDayWrap");if(w)w.style.display="block";}
+function calcCustomDay(){
+  const n=parseInt(document.getElementById("customDayNum").value)||1,t=parseInt(document.getElementById("customDayTotal").value)||5,p=n/t;
+  let mult;
+  if(p<=0.15)mult=0.18;else if(p<=0.30)mult=0.55;else if(p<=0.55)mult=0.85;
+  else if(p<=0.70)mult=1.0;else if(p<=0.85)mult=0.82;else if(p<=0.95)mult=0.65;else mult=0.72;
+  evSt.customMult=mult;evSt.dayMult=mult;
+  const pct=Math.round(mult*100);
+  const res=document.getElementById("customDayResult");
+  if(res)res.innerHTML="Day "+n+" of "+t+" \u2192 <strong>"+pct+"%</strong> of peak";
+  calc();
+}
+
+function menuAlertHTML(t){
+  if(!t)return"";
+  if(t==="medical")return'<div class="alert-banner alert-green">Medical Convention: Drip coffee, Americanos, simple lattes. Fast throughput &mdash; great IPLH. Stock drip stations.</div>';
+  if(t==="dental")return'<div class="alert-banner alert-gold">Dental Convention: Sugary drinks (caramel macchiatos, Frappes, sweet refreshers), pastries, cookies, brownies. Stock sweet syrups and pastry case.</div>';
+  if(t==="nerd")return'<div class="alert-banner alert-gold">Nerd/Comic Con: Frappes, cookies, brownies, sausage egg, double smoked bacon, cake pops. Groups order for 4-8 people! 50%+ mobile surge.</div>';
+  if(t==="religious")return'<div class="alert-banner alert-gold">Religious Event: EVERYTHING sells &mdash; Frappes, all food, pastries, cake pops, sandwiches, cookies, brownies. Pre-stock entire food case and cold bar.</div>';
+  return"";
 }
 
 function calc(){
-  evSt.attendance=parseFloat(document.getElementById('attendance').value)||null;
-  evSt.duration=parseFloat(document.getElementById('duration').value)||8;
-  evSt.startHour=parseFloat(document.getElementById('startHour').value)||8;
-  const {attendance,duration,startHour,dayType,dayMult,eventBase,drinkSplit,foodSplit,proximity,custMult,drinkMod,foodMod,complexity,tsdHr,mobileLevel,menuType}=evSt;
+  evSt.attendance=parseFloat(document.getElementById("attendance").value)||null;
+  evSt.duration=parseFloat(document.getElementById("duration").value)||8;
+  evSt.startHour=parseFloat(document.getElementById("startHour").value)||8;
+  const{attendance,duration,startHour,dayType,dayMult,eventBase,drinkSplit,foodSplit,proximity,custMult,drinkMod,foodMod,complexity,tsdHr,mobileLevel,menuType}=evSt;
   if(!attendance||!eventBase||!proximity||!custMult){
-    document.getElementById('resultsWrap').innerHTML='<div class="results"><div class="empty" style="color:rgba(255,255,255,0.4)">🐱 fill in all sections above and i\'ll meow your estimate~ ↑</div></div>';
+    G.event.active=false;
+    document.getElementById("resultsWrap").innerHTML='<div class="result-card green"><div class="empty">Fill in all sections above &mdash; then check Summary!</div></div>';
     return;
   }
-  const BASELINE=500, adjTsdHr=tsdHr*(complexity>1?1/complexity:complexity<1?1/complexity:1);
+  const BASELINE=500;
+  const adjTsdHr=tsdHr*(complexity>1?1/complexity:complexity<1?1/complexity:1);
   const eventTx=Math.round(attendance*proximity*eventBase*custMult*dayMult);
   const totalTx=eventTx+BASELINE;
-  const adjDrink=Math.min(drinkSplit+drinkMod,0.95);
+  const adjDrink=Math.min((drinkSplit||0.70)+drinkMod,0.95);
   const adjFood=1-adjDrink;
-  const drinkTx=Math.round(totalTx*adjDrink), foodTx=Math.round(totalTx*adjFood);
+  const drinkTx=Math.round(totalTx*adjDrink),foodTx=Math.round(totalTx*adjFood);
   const earned=(totalTx/adjTsdHr).toFixed(2);
-  const rangeL=Math.round(totalTx*0.85), rangeH=Math.round(totalTx*1.15);
-  const mobTx=Math.round(totalTx*mobileLevel), cafeTx=totalTx-mobTx;
-  const dist=buildEventCurve(duration*2,startHour,dayType);
-  const complexNote=complexity!==1?`<div class="alert-banner alert-gold">⚠️ <strong>Complexity adjusted:</strong> ${adjTsdHr.toFixed(1)} TSD/hr (normal 10.5) — more items per order means more labor per transaction.</div>`:'';
-  document.getElementById('resultsWrap').innerHTML=`
-    <div class="results">
-      <div class="results-header">🐾 ✨ Your Estimate · 03298 7th & Pike</div>
-      <div class="big-stats">
-        <div class="big-stat main"><div class="val">${totalTx.toLocaleString()}</div><div class="lbl">Total TSDs</div></div>
-        <div class="big-stat"><div class="val">${earned}</div><div class="lbl">Earned Hrs</div></div>
-        <div class="big-stat"><div class="val">${Math.round(totalTx/(duration*2))}</div><div class="lbl">Per 30 Min</div></div>
-      </div>
-      ${complexNote}${menuAlert(menuType,totalTx)}
-      <div class="alert-banner alert-blue">📱 <strong>Channel split:</strong> ~${Math.round(mobileLevel*100)}% mobile/delivery = ${mobTx} TSDs hitting the bar invisibly (${cafeTx} cafe + ${Math.round(totalTx*0.03)} DoorDash/Uber Eats est). All orders still need to be made!</div>
-      <div class="result-section">
-        <div class="result-section-title">Drink vs Food</div>
-        <div class="split-row"><div class="split-icon">🧋</div><div class="split-info"><div class="split-name">Drinks · ${Math.round(adjDrink*100)}%</div><div class="split-bar"><div class="split-bar-fill" style="width:${Math.round(adjDrink*100)}%;background:var(--mint);"></div></div></div><div class="split-count" style="color:var(--mint);">${drinkTx.toLocaleString()}</div></div>
-        <div class="split-row"><div class="split-icon">🍡</div><div class="split-info"><div class="split-name">Food · ${Math.round(adjFood*100)}%</div><div class="split-bar"><div class="split-bar-fill" style="width:${Math.round(adjFood*100)}%;background:var(--gold);"></div></div></div><div class="split-count" style="color:var(--gold);">${foodTx.toLocaleString()}</div></div>
-      </div>
-      <div class="result-section">
-        <div class="result-section-title">Staffing Summary</div>
-        <div class="rrow"><span class="rrow-label">Earned labor hours</span><span class="rrow-val gold">${earned} hrs</span></div>
-        <div class="rrow"><span class="rrow-label">Labor range</span><span class="rrow-val">${(rangeL/adjTsdHr).toFixed(1)} – ${(rangeH/adjTsdHr).toFixed(1)} hrs</span></div>
-        <div class="rrow"><span class="rrow-label">TSD/hr ratio</span><span class="rrow-val">${adjTsdHr.toFixed(1)} (normal: 10.5)</span></div>
-        <div class="rrow"><span class="rrow-label">Event-driven TSDs</span><span class="rrow-val">${eventTx.toLocaleString()}</span></div>
-        <div class="rrow"><span class="rrow-label">Baseline store TSDs</span><span class="rrow-val">${BASELINE} (7th & Pike avg)</span></div>
-        <div class="rrow"><span class="rrow-label">Capture rate</span><span class="rrow-val">${(eventTx/attendance*100).toFixed(1)}%</span></div>
-      </div>
-    </div>
-    <div class="chart-card"><div class="chart-title">🌿 Traffic Curve · per 30 min</div>${buildChart(dist,totalTx,startHour,'#00704A')}<div class="chart-legend"><div class="legend-item"><div class="legend-dot" style="background:#00704A"></div>Transactions per 30 min</div></div></div>`;
+  const mobTx=Math.round(totalTx*mobileLevel);
+  G.event={active:true,tsd:totalTx,earned:parseFloat(earned),label:menuType||"event",menuType,mobileLevel,complexity,tsdHr:adjTsdHr,drinkPct:adjDrink,foodPct:adjFood,startHour,duration,dayType};
+  const dist=buildEventCurve(duration*2,startHour,dayType,evSt.customMult);
+  const complexNote=complexity!==1?'<div class="alert-banner alert-gold">Complexity adjusted: '+adjTsdHr.toFixed(1)+' TSD/hr (normal 10.5)</div>':"";
+  document.getElementById("resultsWrap").innerHTML=
+    '<div class="result-card green">'+
+    '<div class="result-header">Event Estimate &middot; check Summary for full day!</div>'+
+    '<div class="big-stats">'+
+    '<div class="big-stat main"><div class="val">'+totalTx.toLocaleString()+'</div><div class="lbl">Total TSDs</div></div>'+
+    '<div class="big-stat"><div class="val">'+earned+'</div><div class="lbl">Earned Hrs</div></div>'+
+    '<div class="big-stat"><div class="val">'+Math.round(totalTx/(duration*2))+'</div><div class="lbl">Per 30 Min</div></div>'+
+    '</div>'+
+    complexNote+menuAlertHTML(menuType)+
+    '<div class="alert-banner alert-blue">Mobile/delivery: ~'+Math.round(mobileLevel*100)+'% = '+mobTx+' TSDs hitting bar invisibly</div>'+
+    '<div class="result-section">'+
+    '<div class="rrow"><span class="rrow-label">Earned hrs</span><span class="rrow-val gold">'+earned+' hrs</span></div>'+
+    '<div class="rrow"><span class="rrow-label">TSD/hr ratio</span><span class="rrow-val">'+adjTsdHr.toFixed(1)+'</span></div>'+
+    '<div class="rrow"><span class="rrow-label">Drinks / Food</span><span class="rrow-val">'+drinkTx+' / '+foodTx+'</span></div>'+
+    '<div class="rrow"><span class="rrow-label">Capture rate</span><span class="rrow-val">'+( eventTx/attendance*100).toFixed(1)+'%</span></div>'+
+    '</div></div>'+
+    '<div class="chart-card"><div class="chart-title">Event Traffic &middot; per 30 min</div>'+buildChart(dist,totalTx,startHour,"#00704A")+'</div>';
 }
 
-function buildEventCurve(slots,startHour,dayType){
+function buildEventCurve(slots,startHour,dayType,customMult){
   const dist=[];
   for(let i=0;i<slots;i++){
-    const p=i/(slots-1||1); let w=1.0;
-    if(dayType==='single') w=Math.exp(-Math.pow((p-0.4)*2.8,2))*1.4+0.4;
-    else if(dayType==='arrival') w=0.25+Math.pow(p,1.6)*1.5;
-    else if(dayType==='peak') w=1.1+Math.exp(-Math.pow((p-0.5)*4,2))*0.4;
-    else if(dayType==='final') w=1.6-Math.pow(p,1.4)*1.35;
+    const p=i/(slots-1||1);let w=1.0;
+    if(dayType==="single")w=Math.exp(-Math.pow((p-0.4)*2.8,2))*1.4+0.4;
+    else if(dayType==="arrival")w=0.25+Math.pow(p,1.6)*1.5;
+    else if(dayType==="building")w=0.4+Math.pow(p,1.2)*1.2;
+    else if(dayType==="peak")w=1.1+Math.exp(-Math.pow((p-0.5)*4,2))*0.4;
+    else if(dayType==="tapering")w=1.2-Math.pow(p,2)*0.5;
+    else if(dayType==="prefinal")w=1.0-Math.pow(p,1.8)*0.6;
+    else if(dayType==="final")w=1.6-Math.pow(p,1.4)*1.35;
+    else if(dayType==="custom"&&customMult)w=(Math.exp(-Math.pow((p-0.4)*2.8,2))*1.4+0.4)*customMult;
     dist.push(Math.max(w,0.1));
   }
-  const t=dist.reduce((a,b)=>a+b,0); return dist.map(d=>d/t);
+  const t=dist.reduce((a,b)=>a+b,0);return dist.map(d=>d/t);
 }
 
-// ===== CRUISE MODE =====
-const SHIPS={ sm:{icon:'⛵',name:'Small',tsdFull:561,tsdAm:364,tsdPm:197,hrs:50}, mid:{icon:'🚢',name:'Mid-Size',tsdFull:361,tsdAm:208,tsdPm:153,hrs:42.25}, lg:{icon:'🛳️',name:'Large',tsdFull:610,tsdAm:388,tsdPm:222,hrs:50.75}, mega:{icon:'🏙️',name:'Mega',tsdFull:491,tsdAm:329,tsdPm:162,hrs:46.75} };
-let shipItems=[], shipUID=0;
+const SHIPS={
+  sm:{icon:"⛵",name:"Small",tsdFull:561,tsdAm:364,tsdPm:197,hrs:50},
+  mid:{icon:"🚢",name:"Mid-Size",tsdFull:361,tsdAm:208,tsdPm:153,hrs:42.25},
+  lg:{icon:"🛳️",name:"Large",tsdFull:610,tsdAm:388,tsdPm:222,hrs:50.75},
+  mega:{icon:"🏙️",name:"Mega",tsdFull:491,tsdAm:329,tsdPm:162,hrs:46.75}
+};
+let shipItems=[],shipUID=0;
 
-function addShip(size){
-  shipItems.push({uid:shipUID++,size,pier:'p66'});
-  renderShips(); calcCruise();
-}
-function removeShip(uid){ shipItems=shipItems.filter(s=>s.uid!==uid); renderShips(); calcCruise(); }
-function setShipPier(uid,pier){ shipItems=shipItems.map(s=>s.uid===uid?{...s,pier}:s); renderShips(); calcCruise(); }
+function addShip(size){shipItems.push({uid:shipUID++,size,pier:"p66"});renderShips();calcCruise();}
+function removeShip(uid){shipItems=shipItems.filter(s=>s.uid!==uid);renderShips();calcCruise();}
+function setShipPier(uid,pier){shipItems=shipItems.map(s=>s.uid===uid?{...s,pier}:s);renderShips();calcCruise();}
 
 function renderShips(){
-  const el=document.getElementById('shipStackList');
-  if(!shipItems.length){ el.innerHTML='<div class="empty-stack">No ships added yet — tap a size below ↓</div>'; return; }
+  const el=document.getElementById("shipStackList");
+  if(!shipItems.length){el.innerHTML='<div class="empty" style="padding:16px;">No ships added &mdash; tap a size below</div>';return;}
   el.innerHTML=shipItems.map(s=>{
-    const d=SHIPS[s.size]; const mult=s.pier==='p66'?1.0:0.55;
-    const tsd=Math.round(d.tsdFull*mult);
-    return `<div class="stacked-ship">
-      <div class="stacked-ship-header">
-        <div class="ss-icon">${d.icon}</div>
-        <div class="ss-info"><div class="ss-name">${d.name} Ship</div><div class="ss-detail">LY ${d.tsdFull} TSDs × ${mult===1?'P66 full':'P91 55%'} = <strong>${tsd} TSDs</strong></div></div>
-        <div class="ss-tsd">${tsd}</div>
-        <button class="ship-remove" onclick="removeShip(${s.uid})">✕</button>
-      </div>
-      <div class="pier-toggle">
-        <button class="pier-btn-sm ${s.pier==='p66'?'active':''}" onclick="setShipPier(${s.uid},'p66')">🏙️ Pier 66 · Bell St · Full capture</button>
-        <button class="pier-btn-sm ${s.pier==='p91'?'active':''}" onclick="setShipPier(${s.uid},'p91')">🌊 Pier 91 · Smith Cove · 55%</button>
-      </div>
-    </div>`;
-  }).join('');
+    const d=SHIPS[s.size],mult=s.pier==="p66"?1.0:0.55,tsd=Math.round(d.tsdFull*mult);
+    return'<div class="stacked-ship"><div class="stacked-ship-header">'+
+      '<div class="ss-icon">'+d.icon+'</div>'+
+      '<div class="ss-info"><div class="ss-name">'+d.name+' Ship</div><div class="ss-detail">LY '+d.tsdFull+' &times; '+( mult===1?"P66 full":"P91 55%")+' = <strong>'+tsd+' TSDs</strong></div></div>'+
+      '<div class="ss-tsd">'+tsd+'</div>'+
+      '<button class="ship-remove" onclick="removeShip('+s.uid+')">&#x2715;</button>'+
+      '</div><div class="pier-toggle">'+
+      '<button class="pier-btn-sm '+( s.pier==="p66"?"active":"")+'" onclick="setShipPier('+s.uid+',&quot;p66&quot;)">Pier 66 &middot; Full</button>'+
+      '<button class="pier-btn-sm '+( s.pier==="p91"?"active":"")+'" onclick="setShipPier('+s.uid+',&quot;p91&quot;)">Pier 91 &middot; 55%</button>'+
+      '</div></div>';
+  }).join("");
 }
 
 function calcCruise(){
+  const hyatt=parseInt((document.querySelector("#hyattEffect .opt.active")||{dataset:{val:0}}).dataset.val||0);
+  const hyattBonus=hyatt?40:0;
   if(!shipItems.length){
-    document.getElementById('cruiseResultsWrap').innerHTML='<div class="cruise-results"><div class="empty" style="color:rgba(255,255,255,0.35)">🚢 add ships above to see your cruise day estimate~ ⚓</div></div>';
+    G.cruise={active:false,tsd:0,earned:0,ships:[],hyatt:false,amTsd:0,pmTsd:0};
+    document.getElementById("cruiseResultsWrap").innerHTML='<div class="result-card green"><div class="empty">Add ships above &mdash; they will appear in Summary automatically!</div></div>';
     return;
   }
-  const hyatt=parseInt((document.querySelector('#hyattEffect .opt.active')||{dataset:{val:0}}).dataset.val||0);
-  const hyattBonus=hyatt?40:0;
   let totalAm=0,totalPm=0;
-  shipItems.forEach(s=>{
-    const d=SHIPS[s.size]; const mult=s.pier==='p66'?1.0:0.55;
-    totalAm+=Math.round(d.tsdAm*mult);
-    totalPm+=Math.round(d.tsdPm*mult);
-  });
+  shipItems.forEach(s=>{const d=SHIPS[s.size],m=s.pier==="p66"?1.0:0.55;totalAm+=Math.round(d.tsdAm*m);totalPm+=Math.round(d.tsdPm*m);});
   totalAm+=hyattBonus;
-  const totalTsd=totalAm+totalPm;
-  const earned=(totalTsd/10.5).toFixed(2);
-  const shipSummary=shipItems.map(s=>{const d=SHIPS[s.size];const m=s.pier==='p66'?1.0:0.55;return `${d.icon} ${d.name} @ ${s.pier==='p66'?'P66':'P91'} (~${Math.round(d.tsdFull*m)} TSDs)`;}).join(' + ');
-  const dist=buildCruiseCurve(totalTsd,totalAm,totalPm);
-  const colors=dist.map((_,i)=>i<13?'#7ec8f0':'#b088c8');
-  document.getElementById('cruiseResultsWrap').innerHTML=`
-    <div class="cruise-results">
-      <div class="results-header">⚓ ✨ Cruise Day Estimate · ${shipItems.length} ship${shipItems.length>1?'s':''}</div>
-      ${shipItems.length>1?`<div class="alert-banner alert-gold" style="margin-bottom:14px;">🚢 Multi-ship day! ${shipSummary}</div>`:''}
-      ${hyatt?`<div class="alert-banner alert-blue" style="margin-bottom:14px;">🏨 Hyatt checkout overlap · +40 morning TSDs · 10–11am peak</div>`:''}
-      <div class="daypart-grid">
-        <div class="daypart-card main"><div class="dp-val">${totalTsd}</div><div class="dp-lbl">Total TSDs</div></div>
-        <div class="daypart-card"><div class="dp-val">${totalAm}</div><div class="dp-lbl">5a–11:30a 🌅</div></div>
-        <div class="daypart-card"><div class="dp-val">${totalPm}</div><div class="dp-lbl">11:30a–close 🌙</div></div>
-      </div>
-      <div class="result-section">
-        <div class="rrow"><span class="rrow-label">Est. earned labor hours</span><span class="rrow-val gold">${earned} hrs</span></div>
-        <div class="rrow"><span class="rrow-label">Morning labor (5a–11:30a)</span><span class="rrow-val">${(totalAm/10.5).toFixed(1)} hrs</span></div>
-        <div class="rrow"><span class="rrow-label">Afternoon labor (11:30a+)</span><span class="rrow-val">${(totalPm/10.5).toFixed(1)} hrs</span></div>
-        <div class="rrow"><span class="rrow-label">Morning share</span><span class="rrow-val">${Math.round(totalAm/totalTsd*100)}% — schedule heavy AM coverage</span></div>
-        ${shipItems.map(s=>{const d=SHIPS[s.size];const m=s.pier==='p66'?1.0:0.55;return `<div class="rrow"><span class="rrow-label">${d.icon} ${d.name} @ ${s.pier.toUpperCase()}</span><span class="rrow-val">${Math.round(d.tsdFull*m)} TSDs · ${(Math.round(d.tsdFull*m)/10.5).toFixed(1)} hrs</span></div>`;}).join('')}
-      </div>
-    </div>
-    <div class="chart-card-blue"><div class="chart-title" style="color:#3a6fad;">🌊 Cruise Day Traffic · per 30 min</div>${buildChart(dist,totalTsd,5,colors)}<div class="chart-legend"><div class="legend-item"><div class="legend-dot" style="background:#7ec8f0"></div>Morning 5a–11:30a</div><div class="legend-item"><div class="legend-dot" style="background:#b088c8"></div>Afternoon 11:30a+</div></div></div>`;
+  const totalTsd=totalAm+totalPm,earned=(totalTsd/10.5).toFixed(2);
+  G.cruise={active:true,tsd:totalTsd,earned:parseFloat(earned),ships:[...shipItems],hyatt:!!hyatt,amTsd:totalAm,pmTsd:totalPm};
+  const dist=buildCruiseCurve();
+  const cols=dist.map((_,i)=>i<10?"#7ec8f0":i<=14?"#3a6fad":"#b088c8");
+  document.getElementById("cruiseResultsWrap").innerHTML=
+    '<div class="result-card green"><div class="result-header">Cruise Estimate &middot; '+shipItems.length+' ship'+( shipItems.length>1?"s":"")+' &middot; check Summary!</div>'+
+    '<div class="daypart-grid">'+
+    '<div class="dp-card main"><div class="dp-val">'+totalTsd+'</div><div class="dp-lbl">Total TSDs</div></div>'+
+    '<div class="dp-card"><div class="dp-val">'+totalAm+'</div><div class="dp-lbl">5a&ndash;11:30a</div></div>'+
+    '<div class="dp-card"><div class="dp-val">'+totalPm+'</div><div class="dp-lbl">11:30a&ndash;close</div></div>'+
+    '</div><div class="result-section">'+
+    '<div class="rrow"><span class="rrow-label">Earned hours</span><span class="rrow-val gold">'+earned+' hrs</span></div>'+
+    '<div class="rrow"><span class="rrow-label">Peak window</span><span class="rrow-val">10am&ndash;12pm &middot; schedule heavy AM</span></div>'+
+    shipItems.map(s=>{const d=SHIPS[s.size],m=s.pier==="p66"?1.0:0.55;return'<div class="rrow"><span class="rrow-label">'+d.icon+' '+d.name+' @ '+s.pier.toUpperCase()+'</span><span class="rrow-val">'+Math.round(d.tsdFull*m)+' TSDs</span></div>';}).join("")+
+    '</div></div>'+
+    '<div class="chart-card"><div class="chart-title" style="color:#3a6fad;">Cruise Traffic &middot; peak 10am&ndash;12pm</div>'+buildChart(dist,totalTsd,5,cols)+
+    '<div class="chart-legend"><div class="legend-item"><div class="legend-dot" style="background:#7ec8f0"></div>Building 5&ndash;10am</div><div class="legend-item"><div class="legend-dot" style="background:#3a6fad"></div>Peak 10am&ndash;12pm</div><div class="legend-item"><div class="legend-dot" style="background:#b088c8"></div>Afternoon trickle</div></div></div>';
 }
 
-function buildCruiseCurve(total,am,pm){
-  const slots=38; const dist=[];
+function buildCruiseCurve(){
+  const slots=38,dist=[];
   for(let i=0;i<slots;i++){
-    let w; if(i<13){ const p=i/12; w=Math.exp(-Math.pow((p-0.55)*2.5,2))*1.8+0.3; if(i>=10&&i<=12)w*=1.15; }
-    else{ const p=(i-13)/(slots-13); w=Math.max(0.8-p*0.7,0.08); }
+    const h=5+i*0.5;let w=0.15;
+    if(h>=5&&h<7)w=0.15;
+    else if(h>=7&&h<10)w=0.3+Math.exp(-Math.pow((h-9)*2,2))*0.3;
+    else if(h>=10&&h<=12)w=1.0+Math.exp(-Math.pow((h-11)*1.2,2))*0.8;
+    else if(h>12&&h<=14)w=Math.max(0.9-Math.pow(h-12,1.5)*0.35,0.2);
+    else if(h>14&&h<=17)w=0.25;
+    else if(h>17)w=Math.max(0.15-(h-17)*0.04,0.05);
     dist.push(Math.max(w,0.05));
   }
-  const t=dist.reduce((a,b)=>a+b,0); return dist.map(d=>d/t);
+  const t=dist.reduce((a,b)=>a+b,0);return dist.map(d=>d/t);
 }
 
-// ===== PARAMOUNT MODE =====
-const pSt={baseline:null,bonus:null,pattern:null,doorTime:18,runMult:1.15};
+const pSt={baseline:null,bonus:null,pattern:"none",doorTime:18,matineeDoor:13.5,runMult:1.15};
+
 function pickParamount(btn,group){
-  document.querySelectorAll('#'+group+' .show-btn, #'+group+' .opt').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  if(group==='showType'){pSt.baseline=parseInt(btn.dataset.baseline);pSt.bonus=parseInt(btn.dataset.bonus);pSt.pattern=btn.dataset.pattern;}
-  else if(group==='doorTime') pSt.doorTime=parseFloat(btn.dataset.val);
-  else if(group==='runWeek') pSt.runMult=parseFloat(btn.dataset.mult);
+  document.querySelectorAll("#"+group+" .show-btn, #"+group+" .opt").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  if(group==="showType"){pSt.baseline=parseInt(btn.dataset.baseline);pSt.bonus=parseInt(btn.dataset.bonus);pSt.pattern=btn.dataset.pattern;const mw=document.getElementById("matineeDoorWrap");if(mw)mw.style.display=pSt.pattern==="weekend_double"?"block":"none";}
+  else if(group==="doorTime")pSt.doorTime=parseFloat(btn.dataset.val);
+  else if(group==="matineeDoorTime")pSt.matineeDoor=parseFloat(btn.dataset.val);
+  else if(group==="runWeek")pSt.runMult=parseFloat(btn.dataset.mult);
   calcParamount();
 }
+
 function calcParamount(){
-  const{baseline,bonus,pattern,doorTime,runMult}=pSt;
-  if(!pattern){document.getElementById('paramountResultsWrap').innerHTML='<div class="paramount-results"><div class="empty" style="color:rgba(255,255,255,0.25)">🎭 select a show type to see your estimate~ 🎶</div></div>';return;}
-  const total=Math.round((baseline+bonus)*runMult), earned=(total/10.5).toFixed(2);
-  let amT=Math.round(200*runMult),midT,pmT,eveT;
-  if(pattern==='weeknight_one'){midT=Math.round(115*runMult);pmT=Math.round(105*runMult);eveT=Math.round(70*runMult);}
-  else if(pattern==='weeknight_two'){midT=Math.round(115*runMult);pmT=Math.round(115*runMult);eveT=Math.round(105*runMult);}
-  else if(pattern==='weekend_matinee'){midT=Math.round(160*runMult);pmT=Math.round(115*runMult);eveT=Math.round(75*runMult);}
-  else{midT=Math.round(160*runMult);pmT=Math.round(130*runMult);eveT=Math.round(105*runMult);}
-  const raw=amT+midT+pmT+eveT,sc=total/raw;
-  amT=Math.round(amT*sc);midT=Math.round(midT*sc);pmT=Math.round(pmT*sc);eveT=total-amT-midT-pmT;
-  const hasMat=pattern.includes('matinee')||pattern.includes('double');
-  const dh=Math.floor(doorTime), dm=doorTime%1===0.5?':30':'';
-  const dlbl=dh<12?dh+dm+'am':dh===12?'12'+dm+'pm':(dh-12)+dm+'pm';
-  const dist=buildParamountCurve(pattern,doorTime);
-  const doorSlot=Math.round((doorTime-4)*2);
-  const cols=dist.map((_,i)=>{const h=4+i*0.5;if(i>=5&&i<=10)return '#b088c8';if(hasMat&&i>=14&&i<=19)return '#ffe08a';if(i>=doorSlot-3&&i<=doorSlot+1)return '#f4a0c8';return '#7c5aad44';});
-  document.getElementById('paramountResultsWrap').innerHTML=`
-    <div class="paramount-results">
-      <div class="results-header">🎭 ✨ Paramount Day Estimate</div>
-      <div class="p-daypart-grid">
-        <div class="p-dp main"><div class="pdp-val">${total}</div><div class="pdp-lbl">Total TSDs</div></div>
-        <div class="p-dp"><div class="pdp-val">${earned}</div><div class="pdp-lbl">Earned Hrs</div></div>
-        <div class="p-dp"><div class="pdp-val">${runMult===1.15?'Opening':runMult===0.9?'Closing':'Mid-Run'}</div><div class="pdp-lbl">Run Week</div></div>
-      </div>
-      <div class="result-section">
-        <div class="prow"><span class="prow-label">🌅 Morning (4a–11a)</span><span class="prow-val">${amT} TSDs · ${(amT/10.5).toFixed(1)} hrs</span></div>
-        <div class="prow"><span class="prow-label">${hasMat?'☀️ Pre-matinee (11a–2p)':'🌤️ Midday (11a–2p)'}</span><span class="prow-val ${hasMat?'gold':''}">${midT} TSDs · ${(midT/10.5).toFixed(1)} hrs${hasMat?' ↑':''}</span></div>
-        <div class="prow"><span class="prow-label">🌇 Afternoon (2p–6p)</span><span class="prow-val">${pmT} TSDs · ${(pmT/10.5).toFixed(1)} hrs</span></div>
-        <div class="prow"><span class="prow-label">🌙 Pre-show (6p+) · Doors ${dlbl}</span><span class="prow-val ${bonus>30?'gold':''}">${eveT} TSDs · ${(eveT/10.5).toFixed(1)} hrs${bonus>30?' ↑':''}</span></div>
-      </div>
-      <div style="font-size:0.65rem;color:rgba(255,255,255,0.3);text-align:center;">3,000-seat Paramount · ${runMult===1.15?'Opening run boost applied':runMult===0.9?'Closing adjustment applied':'Mid-run baseline'}</div>
-    </div>
-    <div class="chart-card-purple"><div class="chart-title" style="color:#7c3aad;">🎭 Paramount Day Traffic · per 30 min</div>${buildChart(dist,total,4,cols)}<div class="chart-legend"><div class="legend-item"><div class="legend-dot" style="background:#b088c8"></div>Morning rush</div>${hasMat?'<div class="legend-item"><div class="legend-dot" style="background:#ffe08a"></div>Pre-matinee</div>':''}<div class="legend-item"><div class="legend-dot" style="background:#f4a0c8"></div>Pre-show</div></div></div>`;
-}
-function buildParamountCurve(pattern,doorTime){
-  const slots=40,dist=[],dSlot=Math.round((doorTime-4)*2);
-  for(let i=0;i<slots;i++){
-    const h=4+i*0.5; let w=0.3;
-    if(i>=5&&i<=10) w=1.0+Math.exp(-Math.pow((i-8)*0.8,2))*1.2;
-    else if((pattern==='weekend_matinee'||pattern==='weekend_double')&&i>=14&&i<=19) w=0.8+Math.exp(-Math.pow((i-16)*0.9,2))*0.9;
-    else if(i>=11&&i<dSlot-2) w=0.45;
-    else if(i>=dSlot-3&&i<=dSlot+1){ const hasE=pattern!=='weeknight_one'; w=hasE?(0.6+Math.exp(-Math.pow((i-dSlot)*1.2,2))*0.9):0.35; }
-    else if(i>dSlot+1) w=Math.max(0.15-(i-dSlot-2)*0.03,0.05);
-    dist.push(Math.max(w,0.05));
+  const{baseline,bonus,pattern,doorTime,matineeDoor,runMult}=pSt;
+  if(!pattern||pattern==="none"){
+    G.paramount={active:false,tsd:0,earned:0,label:"",pattern:"none",doorTime,matineeDoor,amTsd:0,middayTsd:0,pmTsd:0,eveTsd:0};
+    document.getElementById("paramountResultsWrap").innerHTML='<div class="result-card purple"><div class="empty">Select a show type &mdash; appears in Summary automatically!</div></div>';
+    return;
   }
-  const t=dist.reduce((a,b)=>a+b,0); return dist.map(d=>d/t);
+  const total=Math.round((baseline+bonus)*runMult),earned=(total/10.5).toFixed(2);
+  let amT=Math.round(170*runMult),midT,pmT,eveT;
+  if(pattern==="weeknight_one"){midT=Math.round(80*runMult);pmT=Math.round(95*runMult);}
+  else if(pattern==="weeknight_two"){midT=Math.round(85*runMult);pmT=Math.round(100*runMult);}
+  else if(pattern==="weekend_matinee"){midT=Math.round(160*runMult);pmT=Math.round(80*runMult);}
+  else{midT=Math.round(150*runMult);pmT=Math.round(100*runMult);}
+  eveT=Math.max(total-amT-midT-pmT,0);
+  G.paramount={active:true,tsd:total,earned:parseFloat(earned),label:pattern,pattern,doorTime,matineeDoor,amTsd:amT,middayTsd:midT,pmTsd:pmT,eveTsd:eveT};
+  const dh=Math.floor(doorTime),dm=doorTime%1===0.5?":30":"";
+  const dlbl=dh<12?dh+dm+"am":dh===12?"12"+dm+"pm":(dh-12)+dm+"pm";
+  const hasMat=pattern==="weekend_matinee"||pattern==="weekend_double";
+  const matH=matineeDoor<12?matineeDoor+"am":(matineeDoor-12)+"pm";
+  const dist=buildParamountCurve(pattern,doorTime,matineeDoor);
+  const cols=dist.map((_,i)=>{const h=4+i*0.5;if(hasMat&&h>=11&&h<=matineeDoor)return"#ffe08a";if(pattern!=="weekend_matinee"&&h>=doorTime-1.5&&h<=doorTime+0.5)return"#f4a0c8";return"#7c5aad33";});
+  document.getElementById("paramountResultsWrap").innerHTML=
+    '<div class="result-card purple"><div class="result-header">Paramount Estimate &middot; check Summary!</div>'+
+    '<div class="daypart-grid">'+
+    '<div class="dp-card main"><div class="dp-val">'+total+'</div><div class="dp-lbl">Total TSDs</div></div>'+
+    '<div class="dp-card"><div class="dp-val">'+earned+'</div><div class="dp-lbl">Earned Hrs</div></div>'+
+    '<div class="dp-card"><div class="dp-val">'+( runMult===1.15?"Open":runMult===0.9?"Close":"Mid")+'</div><div class="dp-lbl">Run Week</div></div>'+
+    '</div><div class="result-section">'+
+    '<div class="rrow"><span class="rrow-label">Morning (no show impact)</span><span class="rrow-val">'+amT+' TSDs</span></div>'+
+    (hasMat?'<div class="rrow"><span class="rrow-label">Pre-matinee 11am&ndash;'+matH+'</span><span class="rrow-val gold">'+midT+' TSDs &uarr; ~20/half-hr</span></div>':'<div class="rrow"><span class="rrow-label">Midday</span><span class="rrow-val">'+midT+' TSDs</span></div>')+
+    (pattern!=="weekend_matinee"?'<div class="rrow"><span class="rrow-label">Pre-show spike &middot; doors '+dlbl+'</span><span class="rrow-val gold">'+eveT+' TSDs &uarr; ~20/half-hr</span></div>':"" )+
+    '</div></div>'+
+    '<div class="chart-card"><div class="chart-title" style="color:#7c3aad;">Paramount &middot; pre-show windows only</div>'+buildChart(dist,total,4,cols)+'</div>';
 }
 
-// ===== SPORTS MODE =====
-const spSt={tsd:null,hrs:null,iplh:null,tsdHr:9.0,pattern:null,cold:0.72,food:0.35,complexity:1.35,prox:1.0};
+function buildParamountCurve(pattern,doorTime,matineeDoor){
+  const slots=40,dist=[];
+  for(let i=0;i<slots;i++){
+    const h=4+i*0.5;let w=0.3;
+    if(h>=6.5&&h<=9.5)w=0.9+Math.exp(-Math.pow((h-8)*1.4,2))*0.6;
+    else if(h>=9.5&&h<11)w=0.4;
+    else if((pattern==="weekend_matinee"||pattern==="weekend_double")&&h>=11&&h<=matineeDoor)w=0.9+Math.exp(-Math.pow((h-12)*1.5,2))*1.1;
+    else if(h>matineeDoor&&h<doorTime-1.5)w=0.35;
+    else if(pattern!=="weekend_matinee"&&h>=doorTime-1.5&&h<=doorTime+0.5)w=0.5+Math.exp(-Math.pow((h-(doorTime-0.5))*1.8,2))*1.4;
+    else if(h>doorTime+0.5)w=Math.max(0.12-(h-doorTime-0.5)*0.04,0.05);
+    dist.push(Math.max(w,0.05));
+  }
+  const t=dist.reduce((a,b)=>a+b,0);return dist.map(d=>d/t);
+}
+
+const spSt={tsd:0,hrs:0,iplh:0,tsdHr:9.0,pattern:"none",cold:0.72,food:0.35,complexity:1.35,prox:1.0};
+
 function pickSports(btn,group){
-  document.querySelectorAll('#'+group+' .opt').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  if(group==='sportType'){spSt.tsd=parseInt(btn.dataset.tsd);spSt.hrs=parseFloat(btn.dataset.hrs);spSt.iplh=parseFloat(btn.dataset.iplh);spSt.tsdHr=parseFloat(btn.dataset.tsdhr||9.0);spSt.pattern=btn.dataset.pattern;}
-  else if(group==='sportCrowd'){spSt.cold=parseFloat(btn.dataset.cold);spSt.food=parseFloat(btn.dataset.food);spSt.complexity=parseFloat(btn.dataset.complexity);}
-  else if(group==='sportProximity') spSt.prox=parseFloat(btn.dataset.mult);
+  document.querySelectorAll("#"+group+" .opt").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  if(group==="sportType"){spSt.tsd=parseInt(btn.dataset.tsd);spSt.hrs=parseFloat(btn.dataset.hrs);spSt.iplh=parseFloat(btn.dataset.iplh);spSt.tsdHr=parseFloat(btn.dataset.tsdhr||9.0);spSt.pattern=btn.dataset.pattern;}
+  else if(group==="sportCrowd"){spSt.cold=parseFloat(btn.dataset.cold);spSt.food=parseFloat(btn.dataset.food);spSt.complexity=parseFloat(btn.dataset.complexity);}
+  else if(group==="sportProximity")spSt.prox=parseFloat(btn.dataset.mult);
   calcSports();
 }
+
 function calcSports(){
   const{tsd,hrs,iplh,tsdHr,pattern,cold,food,complexity,prox}=spSt;
-  if(!tsd){document.getElementById('sportsResultsWrap').innerHTML='<div class="sports-results"><div class="empty" style="color:rgba(255,255,255,0.3)">🏅 select a competition type to see your estimate~ 🧋</div></div>';return;}
+  if(!pattern||pattern==="none"||tsd===0){
+    G.sports={active:false,tsd:0,earned:0,label:"",iplh:0,tsdHr:10.5,pattern:"none",cold,food,isCheer:false};
+    document.getElementById("sportsResultsWrap").innerHTML='<div class="result-card teal"><div class="empty">Select a competition type &mdash; appears in Summary automatically!</div></div>';
+    return;
+  }
   const adjTsd=Math.round(tsd*prox);
   const tsdEarned=(adjTsd/tsdHr).toFixed(1);
   const complexHrs=(parseFloat(tsdEarned)*Math.min(complexity,1.35)).toFixed(1);
   const coldTx=Math.round(adjTsd*cold),hotTx=Math.round(adjTsd*(1-cold-food)),foodTx=Math.round(adjTsd*food);
-  const amT=Math.round(adjTsd*0.30),midT=Math.round(adjTsd*0.28),pmT=Math.round(adjTsd*0.26),lateT=adjTsd-amT-midT-pmT;
   const iplhPct=Math.min(Math.round((iplh/32)*100),100);
-  const isCheer=pattern==='sports_sat'&&cold===0.72;
-  const cheerAlert=isCheer?`<div class="alert-banner alert-red">💃 <strong>Cheer/Dance warning:</strong> Avg ticket ~$25-35 vs normal $4-15. Each TSD = 3-5 people. Low TSD count is DECEPTIVE — budget for complexity, not headcount! Stock: sausage egg, double smoked bacon, cake pops, Frappes, refreshers.</div>`:'';
-  const dist=buildSportsCurve(pattern);
-  const cols=dist.map((_,i)=>{const h=5+i*0.5;if(h>=7&&h<=10.5)return '#7dc5a0';if(h>=11&&h<=13)return '#ffe08a';if(h>=13.5&&h<=16.5)return '#7ec8f0';return '#4a8a6055';});
-  document.getElementById('sportsResultsWrap').innerHTML=`
-    <div class="sports-results">
-      <div class="results-header">🏅 ✨ Competition Day Estimate</div>
-      <div class="alert-banner alert-gold">⚠️ <strong>High complexity!</strong> IPLH ${iplh} vs your normal ~14 — orders are ${(iplh/14).toFixed(1)}× more complex. Families re-order multiple times. Budget <strong>${complexHrs} hrs</strong> not just TSD-earned ${tsdEarned} hrs.</div>
-      ${cheerAlert}
-      <div class="sports-daypart-grid">
-        <div class="sp-dp main"><div class="spd-val">${adjTsd}</div><div class="spd-lbl">Total TSDs</div></div>
-        <div class="sp-dp"><div class="spd-val">${tsdEarned}</div><div class="spd-lbl">TSD Hrs</div></div>
-        <div class="sp-dp"><div class="spd-val" style="color:#ffe08a;">${complexHrs}</div><div class="spd-lbl">Complexity Hrs</div></div>
-        <div class="sp-dp"><div class="spd-val" style="color:#f4a0c8;">${iplh}</div><div class="spd-lbl">IPLH</div></div>
-      </div>
-      <div class="result-section">
-        <div class="rrow"><span class="rrow-label">🌅 Morning 6a–11a</span><span class="rrow-val">${amT} TSDs · ${(amT/tsdHr).toFixed(1)} hrs</span></div>
-        <div class="rrow"><span class="rrow-label">☀️ Midday 11a–2p (family lunch)</span><span class="rrow-val gold">${midT} TSDs · ${(midT/tsdHr).toFixed(1)} hrs ↑</span></div>
-        <div class="rrow"><span class="rrow-label">🌇 Afternoon 2p–5p (finals)</span><span class="rrow-val">${pmT} TSDs · ${(pmT/tsdHr).toFixed(1)} hrs</span></div>
-        <div class="rrow"><span class="rrow-label">🌙 Late 5p+</span><span class="rrow-val">${lateT} TSDs</span></div>
-      </div>
-      <div class="result-section">
-        <div class="rrow"><span class="rrow-label">🧋 Cold drinks (Frappes, refreshers)</span><span class="rrow-val gold">${coldTx} (${Math.round(cold*100)}%)</span></div>
-        <div class="rrow"><span class="rrow-label">☕ Hot drinks</span><span class="rrow-val">${hotTx}</span></div>
-        <div class="rrow"><span class="rrow-label">🍰 Food (cake pops, sandwiches)</span><span class="rrow-val">${foodTx} (${Math.round(food*100)}%)</span></div>
-      </div>
-      <div class="result-section">
-        <div style="font-size:0.65rem;color:rgba(255,255,255,0.45);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.08em;">IPLH Complexity Meter</div>
-        <div style="display:flex;justify-content:space-between;font-size:0.68rem;color:rgba(255,255,255,0.5);margin-bottom:4px;"><span>Normal (14)</span><span>This day (${iplh})</span><span>Max (~32)</span></div>
-        <div class="iplh-wrap"><div class="iplh-fill" style="width:${iplhPct}%;"></div></div>
-        <div style="font-size:0.62rem;color:rgba(255,255,255,0.35);margin-top:8px;text-align:center;">Budget +${(parseFloat(complexHrs)-parseFloat(tsdEarned)).toFixed(1)} extra hrs beyond TSD forecast for complexity 🐱</div>
-      </div>
-    </div>
-    <div class="chart-card-sports"><div class="chart-title" style="color:#0d6e3e;">🏅 Competition Day Traffic · per 30 min</div>${buildChart(dist,adjTsd,5,cols)}<div class="chart-legend"><div class="legend-item"><div class="legend-dot" style="background:#7dc5a0"></div>Morning games</div><div class="legend-item"><div class="legend-dot" style="background:#ffe08a"></div>Family lunch</div><div class="legend-item"><div class="legend-dot" style="background:#7ec8f0"></div>Afternoon finals</div></div></div>`;
+  const isCheer=pattern==="cheer";
+  G.sports={active:true,tsd:adjTsd,earned:parseFloat(complexHrs),label:pattern,iplh,tsdHr,pattern,cold,food,isCheer};
+  const dist=buildSportsCurve();
+  const cols=dist.map((_,i)=>{const h=5+i*0.5;if(h>=7&&h<=10.5)return"#7dc5a0";if(h>=11&&h<=13)return"#ffe08a";if(h>=13.5&&h<=16.5)return"#7ec8f0";return"#4a8a6044";});
+  document.getElementById("sportsResultsWrap").innerHTML=
+    '<div class="result-card teal"><div class="result-header">Comp Estimate &middot; check Summary!</div>'+
+    (isCheer?'<div class="alert-banner alert-red">Cheer day: avg $30 tickets, each TSD = 3-5 people. Budget for complexity!</div>':"")+
+    (iplh>0?'<div class="alert-banner alert-gold">IPLH '+iplh+' vs normal ~14 &mdash; '+( iplh/14).toFixed(1)+'&times; complexity. Budget <strong>'+complexHrs+' hrs</strong> not just '+tsdEarned+' hrs.</div>':"" )+
+    '<div class="sp-grid">'+
+    '<div class="sp-dp main"><div class="spd-val">'+adjTsd+'</div><div class="spd-lbl">TSDs</div></div>'+
+    '<div class="sp-dp"><div class="spd-val">'+tsdEarned+'</div><div class="spd-lbl">TSD Hrs</div></div>'+
+    '<div class="sp-dp"><div class="spd-val" style="color:#ffe08a;">'+complexHrs+'</div><div class="spd-lbl">Complex Hrs</div></div>'+
+    '<div class="sp-dp"><div class="spd-val" style="color:#f4a0c8;">'+iplh+'</div><div class="spd-lbl">IPLH</div></div>'+
+    '</div><div class="result-section">'+
+    '<div class="rrow"><span class="rrow-label">Cold (Frappes, refreshers)</span><span class="rrow-val gold">'+coldTx+' ('+Math.round(cold*100)+'%)</span></div>'+
+    '<div class="rrow"><span class="rrow-label">Hot drinks</span><span class="rrow-val">'+hotTx+'</span></div>'+
+    '<div class="rrow"><span class="rrow-label">Food (cake pops, sandwiches)</span><span class="rrow-val">'+foodTx+' ('+Math.round(food*100)+'%)</span></div>'+
+    '</div>'+
+    (iplh>0?'<div class="result-section"><div style="font-size:0.62rem;color:rgba(255,255,255,0.45);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.08em;">IPLH complexity meter</div><div class="iplh-wrap"><div class="iplh-fill" style="width:'+iplhPct+'%;"></div></div></div>':"" )+
+    '</div>'+
+    '<div class="chart-card"><div class="chart-title" style="color:#0d6e3e;">Competition Traffic &middot; per 30 min</div>'+buildChart(dist,adjTsd,5,cols)+'</div>';
 }
-function buildSportsCurve(pattern){
+
+function buildSportsCurve(){
   const slots=32,dist=[];
   for(let i=0;i<slots;i++){
-    const h=5+i*0.5; let w=0.5;
-    if(h>=7&&h<=10.5) w=1.0+Math.exp(-Math.pow((h-8.5)*1.2,2))*0.8;
-    else if(h>=11&&h<=13) w=1.1;
-    else if(h>=13.5&&h<=16.5) w=0.9+Math.exp(-Math.pow((h-15)*1.4,2))*0.5;
-    else if(h>17) w=Math.max(0.6-(h-17)*0.12,0.1);
+    const h=5+i*0.5;let w=0.5;
+    if(h>=7&&h<=10.5)w=1.0+Math.exp(-Math.pow((h-8.5)*1.2,2))*0.8;
+    else if(h>=11&&h<=13)w=1.1;
+    else if(h>=13.5&&h<=16.5)w=0.9+Math.exp(-Math.pow((h-15)*1.4,2))*0.5;
+    else if(h>17)w=Math.max(0.6-(h-17)*0.12,0.1);
     dist.push(Math.max(w,0.1));
   }
-  const t=dist.reduce((a,b)=>a+b,0); return dist.map(d=>d/t);
+  const t=dist.reduce((a,b)=>a+b,0);return dist.map(d=>d/t);
 }
 
-// ===== STACK MODE =====
-const STACK_CAT={
-  conv_sm:      {icon:'🎌',name:'Convention · Small',      tsd:150,  ratio:10.5, pat:'conv',     detail:'~150 TSD lift · trade/expo'},
-  conv_lg:      {icon:'🎌',name:'Convention · Large',      tsd:300,  ratio:10.5, pat:'conv',     detail:'~300 TSD lift · Sakura-Con scale'},
-  conv_medical: {icon:'🩺',name:'Medical Convention',      tsd:120,  ratio:11.5, pat:'conv',     detail:'Drip coffee · fast · great IPLH'},
-  conv_dental:  {icon:'🦷',name:'Dental Convention',       tsd:140,  ratio:10.0, pat:'conv',     detail:'Sugary drinks · pastries · medium complexity'},
-  conv_nerd:    {icon:'🎮',name:'Nerd / Comic Con',        tsd:200,  ratio:9.2,  pat:'conv',     detail:'Frappes · sandwiches · cake pops · 9.2 TSD/hr'},
-  cruise_p66_sm:{icon:'⛵',name:'Cruise Small · P66',      tsd:561,  ratio:10.5, pat:'cruise',   detail:'LY: 561 TSDs · morning heavy'},
-  cruise_p66_mid:{icon:'🚢',name:'Cruise Mid · P66',       tsd:361,  ratio:10.5, pat:'cruise',   detail:'LY: 361 TSDs · morning heavy'},
-  cruise_p66_lg:{icon:'🛳️',name:'Cruise Large · P66',      tsd:610,  ratio:10.5, pat:'cruise',   detail:'LY: 610 TSDs · morning heavy'},
-  cruise_p66_mega:{icon:'🏙️',name:'Cruise Mega · P66',    tsd:491,  ratio:10.5, pat:'cruise',   detail:'LY: 491 TSDs · morning heavy'},
-  cruise_p91_sm:{icon:'⛵',name:'Cruise Small · P91',      tsd:309,  ratio:10.5, pat:'cruise',   detail:'LY 561 × 55% · Smith Cove'},
-  cruise_p91_mid:{icon:'🚢',name:'Cruise Mid · P91',       tsd:199,  ratio:10.5, pat:'cruise',   detail:'LY 361 × 55% · Smith Cove'},
-  cruise_p91_lg:{icon:'🛳️',name:'Cruise Large · P91',      tsd:336,  ratio:10.5, pat:'cruise',   detail:'LY 610 × 55% · Smith Cove'},
-  cruise_p91_mega:{icon:'🏙️',name:'Cruise Mega · P91',    tsd:270,  ratio:10.5, pat:'cruise',   detail:'LY 491 × 55% · Smith Cove'},
-  show_matinee: {icon:'☀️',name:'Musical · Matinee',       tsd:85,   ratio:10.5, pat:'show_noon',detail:'Paramount 2pm · noon lift'},
-  show_evening: {icon:'🌙',name:'Musical · Evening',        tsd:45,   ratio:10.5, pat:'show_eve', detail:'Paramount · pre-show lift'},
-  comp_cheer:   {icon:'💃',name:'Comp · Cheer/Dance',       tsd:608,  ratio:9.0,  pat:'comp',     detail:'4/18 actual · 9.0 TSD/hr · avg ticket ~$30'},
-  comp_vball:   {icon:'🏐',name:'Comp · Volleyball Sat',    tsd:721,  ratio:9.7,  pat:'comp',     detail:'LY 721 TSDs · IPLH 22.3'},
-  comp_sun:     {icon:'🏅',name:'Comp · Sun Finals',        tsd:899,  ratio:10.2, pat:'comp',     detail:'LY 899 TSDs · IPLH 28.1 · busiest'},
-  hyatt_checkout:{icon:'🏨',name:'Hyatt Checkout',          tsd:40,   ratio:10.5, pat:'morning',  detail:'+40 morning TSDs · 10–11am'},
-  holiday:      {icon:'🎉',name:'Holiday (MLK/Easter)',     tsd:-60,  ratio:10.5, pat:'flat',     detail:'Reduces baseline traffic'},
-};
-let stackItems=[], stackUID=0;
-const STACK_BASE=480;
+function buildSummary(){
+  const active=[];
+  if(G.event.active)active.push(G.event);
+  if(G.cruise.active)active.push(G.cruise);
+  if(G.paramount.active)active.push(G.paramount);
+  if(G.sports.active)active.push(G.sports);
+  if(!active.length){
+    document.getElementById("summaryContent").innerHTML='<div class="result-card summary"><div class="empty">Nothing entered yet!<br><br>Fill in the Event, Cruise, Paramount, or Comps tabs and come back here to see everything combined.</div></div>';
+    return;
+  }
+  const totalTsd=G.event.tsd+G.cruise.tsd+G.paramount.tsd+G.sports.tsd;
+  const activeRatios=[G.event.active?G.event.tsdHr:null,G.cruise.active?10.5:null,G.paramount.active?10.5:null,G.sports.active?G.sports.tsdHr:null].filter(r=>r!==null);
+  const minRatio=Math.min(...activeRatios);
+  const totalEarned=(totalTsd/minRatio).toFixed(1);
+  const sources=[];
+  if(G.event.active)sources.push({icon:"🎪",name:"Event",tsd:G.event.tsd,earned:(G.event.tsd/G.event.tsdHr).toFixed(1),detail:(G.event.menuType||"General event")+" &middot; "+G.event.tsdHr.toFixed(1)+" TSD/hr"});
+  if(G.cruise.active)sources.push({icon:"🚢",name:"Cruise ("+G.cruise.ships.length+" ship"+( G.cruise.ships.length>1?"s":"")+")",tsd:G.cruise.tsd,earned:G.cruise.earned.toFixed(1),detail:"10am&ndash;12pm peak &middot; "+G.cruise.amTsd+" AM / "+G.cruise.pmTsd+" PM"});
+  if(G.paramount.active)sources.push({icon:"🎭",name:"Paramount",tsd:G.paramount.tsd,earned:G.paramount.earned.toFixed(1),detail:G.paramount.pattern.replace("_"," ")+" &middot; pre-show windows only"});
+  if(G.sports.active)sources.push({icon:"🏅",name:"Competition",tsd:G.sports.tsd,earned:G.sports.earned.toFixed(1),detail:"IPLH "+G.sports.iplh+" &middot; "+(G.sports.isCheer?"avg ticket ~$30":"complex orders")});
+  const sourcesHtml=sources.map(s=>'<div class="summary-source"><div class="src-icon">'+s.icon+'</div><div class="src-info"><div class="src-name">'+s.name+'</div><div class="src-detail">'+s.detail+'</div></div><div class="src-tsd">+'+s.tsd+' TSDs</div></div>').join("");
+  let alerts="";
+  if(G.sports.active&&G.sports.isCheer)alerts+='<div class="alert-banner alert-red">Cheer day stacked &mdash; avg $30 tickets, complex orders. Budget '+G.sports.earned+' complexity hrs!</div>';
+  if(G.cruise.active&&G.sports.active)alerts+='<div class="alert-banner alert-gold">Cruise 10am&ndash;12pm overlaps with comp family orders. Fully staff your peak play!</div>';
+  if(G.paramount.active&&G.cruise.active)alerts+='<div class="alert-banner alert-gold">Cruise + Paramount &mdash; heavy morning then evening spike. Two distinct labor peaks today.</div>';
+  if(G.event.active&&G.event.menuType==="religious")alerts+='<div class="alert-banner alert-gold">Religious event stacked &mdash; pre-stock EVERYTHING. Entire food case, all Frappe bases, all refreshers.</div>';
+  if(G.event.active&&G.event.menuType==="nerd")alerts+='<div class="alert-banner alert-gold">Nerd con stacked &mdash; 50% mobile surge. Green Apron essential for DoorDash handoffs.</div>';
+  const stockItems=new Set();
+  if(G.sports.active&&G.sports.isCheer){["Sausage egg sandwiches","Double smoked bacon sandwiches","Cake pops","Frappe bases (all)","Refresher concentrates","Extra cold cups"].forEach(i=>stockItems.add(i));}
+  if(G.event.active&&(G.event.menuType==="nerd"||G.event.menuType==="religious")){["Cookies","Brownies","Cake pops","Sausage egg sandwiches","Double smoked bacon sandwiches","All Frappe bases","Extra cold cups"].forEach(i=>stockItems.add(i));}
+  if(G.event.active&&G.event.menuType==="dental"){["Caramel sauce","Sweet syrups","Frappe bases","Pastries","Cookies","Brownies"].forEach(i=>stockItems.add(i));}
+  if(G.cruise.active){["Cold cups","Mobile order bags","DoorDash packing supplies"].forEach(i=>stockItems.add(i));}
+  const stockHtml=stockItems.size?'<div class="result-section"><div class="result-section-title">Pre-Stock Checklist</div>'+[...stockItems].map(i=>'<div class="rrow"><span class="rrow-label">&#x2713;</span><span class="rrow-val">'+i+'</span></div>').join("")+'</div>':"";
+  const combinedDist=buildCombinedCurve();
+  const combinedColors=combinedDist.map((_,i)=>{const h=4+i*0.5;if(G.cruise.active&&h>=10&&h<=12)return"#7ec8f0";if(G.sports.active&&h>=7&&h<=10.5)return"#7dc5a0";if(G.sports.active&&h>=11&&h<=13)return"#ffe08a";if(G.paramount.active&&h>=G.paramount.doorTime-1.5&&h<=G.paramount.doorTime+0.5)return"#f4a0c8";return"#00704A";});
+  const legendExtra=(G.cruise.active?'<div class="legend-item"><div class="legend-dot" style="background:#7ec8f0"></div>Cruise 10am&ndash;12pm</div>':"")+(G.sports.active?'<div class="legend-item"><div class="legend-dot" style="background:#ffe08a"></div>Comp lunch</div>':"")+(G.paramount.active?'<div class="legend-item"><div class="legend-dot" style="background:#f4a0c8"></div>Pre-show</div>':"");
+  document.getElementById("summaryContent").innerHTML=
+    '<div class="result-card summary"><div class="result-header">Full Day Summary &middot; 03298 7th &amp; Pike</div>'+
+    '<div class="big-stats">'+
+    '<div class="big-stat main"><div class="val">'+totalTsd.toLocaleString()+'</div><div class="lbl">Total TSDs</div></div>'+
+    '<div class="big-stat"><div class="val">'+totalEarned+'</div><div class="lbl">Earned Hrs</div></div>'+
+    '<div class="big-stat"><div class="val">'+active.length+'</div><div class="lbl">Events Stacked</div></div>'+
+    '</div>'+alerts+
+    '<div class="result-section"><div class="result-section-title">What's included today</div>'+sourcesHtml+'</div>'+
+    '<div class="result-section">'+
+    '<div class="rrow"><span class="rrow-label">Total TSDs</span><span class="rrow-val gold">'+totalTsd.toLocaleString()+'</span></div>'+
+    '<div class="rrow"><span class="rrow-label">Total earned hours</span><span class="rrow-val gold">'+totalEarned+' hrs</span></div>'+
+    '<div class="rrow"><span class="rrow-label">TSD/hr ratio used</span><span class="rrow-val">'+minRatio.toFixed(1)+' (complexity adjusted)</span></div>'+
+    '<div class="rrow"><span class="rrow-label">Rule of 200 would say</span><span class="rrow-val">~'+Math.round(totalTsd/200*10)+' hrs &mdash; incorrect for event days!</span></div>'+
+    '</div>'+stockHtml+
+    '<div style="font-size:0.63rem;color:rgba(255,255,255,0.35);text-align:center;margin-top:12px;">Go back to any tab to change events &mdash; Summary updates automatically</div></div>'+
+    '<div class="chart-card"><div class="chart-title">Combined Day Traffic &middot; per 30 min</div>'+buildChart(combinedDist,totalTsd,4,combinedColors)+'<div class="chart-legend"><div class="legend-item"><div class="legend-dot" style="background:#00704A"></div>Event traffic</div>'+legendExtra+'</div></div>';
+}
 
-function stackAdd(id){
-  const c=STACK_CAT[id]; if(!c) return;
-  stackItems.push({uid:stackUID++,id,...c});
-  renderStack(); calcStack();
-}
-function stackRemove(uid){ stackItems=stackItems.filter(i=>i.uid!==uid); renderStack(); calcStack(); }
-function renderStack(){
-  const el=document.getElementById('stackEventList');
-  if(!stackItems.length){el.innerHTML='<div class="empty-stack">No events added yet.<br>Tap below to add ↓</div>';return;}
-  el.innerHTML=stackItems.map(i=>`<div class="stack-event-item"><div class="se-icon">${i.icon}</div><div class="se-info"><div class="se-name">${i.name}</div><div class="se-detail">${i.detail}</div></div><div class="se-tsd">${i.tsd>0?'+':''}${i.tsd}</div><button class="stack-remove" onclick="stackRemove(${i.uid})">✕</button></div>`).join('');
-}
-function calcStack(){
-  if(!stackItems.length){document.getElementById('stackResultsWrap').innerHTML='<div class="stack-results"><div class="empty" style="color:rgba(255,255,255,0.3)">📦 add events above to stack your day~ 🐱</div></div>';return;}
-  const liftTotal=stackItems.reduce((s,i)=>s+i.tsd,0);
-  const totalTsd=Math.max(STACK_BASE+liftTotal,50);
-  const minRatio=Math.min(...stackItems.map(i=>i.ratio));
-  const earned=(totalTsd/minRatio).toFixed(1);
-  const hasComp=stackItems.some(i=>i.pat==='comp');
-  const hasCheer=stackItems.some(i=>i.id==='comp_cheer');
-  const hasCruise=stackItems.some(i=>i.pat==='cruise');
-  const hasNoon=stackItems.some(i=>i.pat==='show_noon');
-  const hasEve=stackItems.some(i=>i.pat==='show_eve');
-  const hasHyatt=stackItems.some(i=>i.pat==='morning');
-  const hasConv=stackItems.some(i=>i.pat==='conv');
-  const dist=buildStackCurve(hasCruise,hasConv,hasComp,hasNoon,hasEve,hasHyatt);
-  const amTsd=Math.round(dist.slice(0,14).reduce((s,d)=>s+d,0)*totalTsd);
-  const noonTsd=Math.round(dist.slice(14,20).reduce((s,d)=>s+d,0)*totalTsd);
-  const pmTsd=Math.round(dist.slice(20,28).reduce((s,d)=>s+d,0)*totalTsd);
-  const eveTsd=Math.round(dist.slice(28).reduce((s,d)=>s+d,0)*totalTsd);
-  const tags=stackItems.map(i=>`<span class="stack-event-tag">${i.icon} ${i.name}</span>`).join('');
-  const compWarn=hasComp?`<div class="alert-banner alert-gold" style="margin-bottom:12px;">⚠️ Competition day stacked! Large group orders will slow throughput. Budget complexity hours not just TSDs.</div>`:'';
-  const cheerWarn=hasCheer?`<div class="alert-banner alert-red" style="margin-bottom:12px;">💃 Cheer/Dance stacked — avg ticket ~$30, each TSD = 3-5 people. Stock: sausage egg, double smoked bacon, cake pops, Frappes, refreshers!</div>`:'';
-  const cols=dist.map((_,i)=>{const h=4+i*0.5;if(h>=6&&h<=9.5)return '#7ec8f0';if(h>9.5&&h<=11.5)return '#7dc5a0';if(h>11.5&&h<=14)return '#ffe08a';if(h>14&&h<=17.5)return '#f4a57a';if(h>17.5)return '#f4a0c8';return '#cccccc33';});
-  document.getElementById('stackResultsWrap').innerHTML=`
-    <div class="stack-results">
-      <div class="results-header">📦 ✨ Stacked Day Estimate</div>
-      <div style="margin-bottom:14px;line-height:1.8;">${tags}</div>
-      ${compWarn}${cheerWarn}
-      <div class="stack-stat-grid">
-        <div class="stack-stat"><div class="ss-val">${totalTsd.toLocaleString()}</div><div class="ss-lbl">Total TSDs</div></div>
-        <div class="stack-stat gold"><div class="ss-val">${earned}</div><div class="ss-lbl">Earned Hrs</div></div>
-        <div class="stack-stat"><div class="ss-val">${Math.round(totalTsd/10.5/12)}</div><div class="ss-lbl">Avg Baristas</div></div>
-      </div>
-      <div class="result-section">
-        <div class="rrow"><span class="rrow-label">🌅 Morning 4a–11a</span><span class="rrow-val ${hasCruise||hasHyatt?'gold':''}">${amTsd} TSDs · ${(amTsd/minRatio).toFixed(1)} hrs${hasCruise?' ⚓':''}${hasHyatt?' 🏨':''}</span></div>
-        <div class="rrow"><span class="rrow-label">☀️ Midday 11a–2p</span><span class="rrow-val ${hasNoon||hasComp?'gold':''}">${noonTsd} TSDs · ${(noonTsd/minRatio).toFixed(1)} hrs${hasNoon?' 🎭':''}${hasComp?' 🏅':''}</span></div>
-        <div class="rrow"><span class="rrow-label">🌇 Afternoon 2p–6p</span><span class="rrow-val ${hasConv||hasComp?'gold':''}">${pmTsd} TSDs · ${(pmTsd/minRatio).toFixed(1)} hrs</span></div>
-        <div class="rrow"><span class="rrow-label">🌙 Evening 6p+</span><span class="rrow-val ${hasEve?'gold':''}">${eveTsd} TSDs · ${(eveTsd/minRatio).toFixed(1)} hrs${hasEve?' 🎭':''}</span></div>
-        <div class="rrow"><span class="rrow-label">📊 Baseline</span><span class="rrow-val">${STACK_BASE} TSDs</span></div>
-        <div class="rrow"><span class="rrow-label">➕ Event lift</span><span class="rrow-val ${liftTotal>=0?'gold':''}">${liftTotal>=0?'+':''}${liftTotal} TSDs</span></div>
-      </div>
-      <div style="font-size:0.63rem;color:rgba(255,255,255,0.35);text-align:center;">Rule of 200 ≈ ${Math.round(totalTsd/200*10)} hrs · your stacked projection: ${earned} hrs 🐱</div>
-    </div>
-    <div class="chart-card"><div class="chart-title">📦 Stacked Day Traffic · per 30 min</div>${buildChart(dist,totalTsd,4,cols)}<div class="chart-legend"><div class="legend-item"><div class="legend-dot" style="background:#7ec8f0"></div>Early AM/Cruise</div><div class="legend-item"><div class="legend-dot" style="background:#ffe08a"></div>Midday</div><div class="legend-item"><div class="legend-dot" style="background:#f4a0c8"></div>Evening show</div></div></div>`;
-}
-function buildStackCurve(hasCruise,hasConv,hasComp,hasNoon,hasEve,hasHyatt){
+function buildCombinedCurve(){
   const slots=40,dist=[];
   for(let i=0;i<slots;i++){
-    const h=4+i*0.5; let w=0.3;
-    if(h>=6.5&&h<=9.5) w+=Math.exp(-Math.pow((h-8)*1.4,2))*1.2;
-    if(hasCruise&&h>=6&&h<=11.5) w+=Math.exp(-Math.pow((h-8.5)*0.9,2))*0.9;
-    if(hasHyatt&&h>=10&&h<=11.5) w+=0.4;
-    if(hasConv&&h>=9&&h<=17) w+=0.35;
-    if(hasComp){if(h>=7&&h<=10.5)w+=Math.exp(-Math.pow((h-8.5)*1.5,2))*0.7;if(h>=13&&h<=16.5)w+=Math.exp(-Math.pow((h-15)*1.5,2))*0.6;if(h>=11&&h<=13)w+=0.4;}
-    if(hasNoon&&h>=11.5&&h<=13.5) w+=Math.exp(-Math.pow((h-12.5)*2,2))*0.7;
-    if(hasEve&&h>=17.5&&h<=19.5) w+=Math.exp(-Math.pow((h-18.5)*2,2))*0.8;
+    const h=4+i*0.5;let w=0.3;
+    if(h>=6.5&&h<=9.5)w+=Math.exp(-Math.pow((h-8)*1.4,2))*1.2;
+    if(G.event.active){const p=Math.max(0,Math.min(1,(h-G.event.startHour)/G.event.duration));w+=Math.exp(-Math.pow((p-0.4)*2.8,2))*0.8+0.2;}
+    if(G.cruise.active&&h>=10&&h<=12)w+=Math.exp(-Math.pow((h-11)*1.2,2))*1.5;
+    if(G.sports.active){if(h>=7&&h<=10.5)w+=Math.exp(-Math.pow((h-8.5)*1.2,2))*0.8;if(h>=11&&h<=13)w+=0.6;if(h>=13.5&&h<=16.5)w+=Math.exp(-Math.pow((h-15)*1.4,2))*0.5;}
+    if(G.paramount.active&&G.paramount.pattern!=="none"){const hasMat=G.paramount.pattern==="weekend_matinee"||G.paramount.pattern==="weekend_double";if(hasMat&&h>=11&&h<=G.paramount.matineeDoor)w+=Math.exp(-Math.pow((h-12)*1.5,2))*0.9;if(G.paramount.pattern!=="weekend_matinee"&&h>=G.paramount.doorTime-1.5&&h<=G.paramount.doorTime+0.5)w+=Math.exp(-Math.pow((h-(G.paramount.doorTime-0.5))*1.8,2))*1.2;}
     dist.push(Math.max(w,0.05));
   }
-  const t=dist.reduce((a,b)=>a+b,0); return dist.map(d=>d/t);
+  const t=dist.reduce((a,b)=>a+b,0);return dist.map(d=>d/t);
 }
 
-// ===== PLANNER MODE =====
 const BL_HRS={Mo:45.4,Tu:48.5,We:49.9,Th:55.5,Fr:58.6,Sa:64.2,Su:55.9};
 const BL_TSD={Mo:430,Tu:490,We:460,Th:520,Fr:560,Sa:600,Su:550};
-const DAYS=['Mo','Tu','We','Th','Fr','Sa','Su'];
-const DAY_NAMES={Mo:'Mon',Tu:'Tue',We:'Wed',Th:'Thu',Fr:'Fri',Sa:'Sat',Su:'Sun'};
+const DAYS=["Mo","Tu","We","Th","Fr","Sa","Su"];
+const DAY_NAMES={Mo:"Mon",Tu:"Tue",We:"Wed",Th:"Thu",Fr:"Fri",Sa:"Sat",Su:"Sun"};
 const EV_OPTS=[
-  {id:'none',label:'✅ Baseline',tsd:0,pill:'event-pill',group:'base'},
-  {id:'conv_sm',label:'🎌 Convention Sm',tsd:150,pill:'event-pill',group:'conv'},
-  {id:'conv_lg',label:'🎌 Convention Lg',tsd:300,pill:'event-pill',group:'conv'},
-  {id:'conv_medical',label:'🩺 Medical Conv',tsd:120,pill:'event-pill',group:'conv'},
-  {id:'conv_dental',label:'🦷 Dental Conv',tsd:140,pill:'event-pill',group:'conv'},
-  {id:'conv_nerd',label:'🎮 Nerd Con',tsd:200,pill:'event-pill',group:'conv',ratio:9.2},
-  {id:'cruise_sm',label:'⛵ Cruise Small',tsd:61,pill:'cruise-pill',group:'cruise'},
-  {id:'cruise_mid',label:'🚢 Cruise Mid',tsd:-39,pill:'cruise-pill',group:'cruise'},
-  {id:'cruise_lg',label:'🛳️ Cruise Large',tsd:110,pill:'cruise-pill',group:'cruise'},
-  {id:'cruise_mega',label:'🏙️ Cruise Mega',tsd:-9,pill:'cruise-pill',group:'cruise'},
-  {id:'cruise_p91',label:'🌊 +P91 Ship',tsd:44,pill:'cruise-pill',group:'cruise2'},
-  {id:'show_wknight',label:'🌙 Show Wknight',tsd:0,pill:'show-pill',group:'show'},
-  {id:'show_mat',label:'☀️ Show Matinee',tsd:85,pill:'show-pill',group:'show'},
-  {id:'show_2x',label:'✨ Show 2x',tsd:130,pill:'show-pill',group:'show'},
-  {id:'hyatt',label:'🏨 Hyatt Checkout',tsd:40,pill:'event-pill',group:'hotel'},
-  {id:'holiday',label:'🎉 Holiday/Easter',tsd:-60,pill:'event-pill',group:'hol'},
-  {id:'sports_cheer',label:'💃 Comp Cheer/Dance',tsd:128,pill:'show-pill',group:'sports',ratio:9.0},
-  {id:'sports_sat',label:'🏅 Comp Sat',tsd:121,pill:'show-pill',group:'sports',ratio:9.7},
-  {id:'sports_sun',label:'🏅 Comp Sun',tsd:299,pill:'show-pill',group:'sports',ratio:10.2},
-  {id:'sports_wkdy',label:'🤸 Comp Wkday',tsd:130,pill:'show-pill',group:'sports',ratio:9.5},
-  {id:'nerd_con',label:'🎮 Nerd Con (ECCC)',tsd:200,pill:'show-pill',group:'sports',ratio:9.2},
+  {id:"none",label:"Baseline",tsd:0,pill:"event-pill",group:"base"},
+  {id:"conv_sm",label:"Convention Sm",tsd:150,pill:"event-pill",group:"conv"},
+  {id:"conv_lg",label:"Convention Lg",tsd:300,pill:"event-pill",group:"conv"},
+  {id:"conv_medical",label:"Medical Conv",tsd:120,pill:"event-pill",group:"conv"},
+  {id:"conv_dental",label:"Dental Conv",tsd:140,pill:"event-pill",group:"conv"},
+  {id:"conv_nerd",label:"Nerd Con",tsd:200,pill:"event-pill",group:"conv",ratio:9.2},
+  {id:"conv_religious",label:"Religious Event",tsd:220,pill:"event-pill",group:"conv",ratio:9.0},
+  {id:"cruise_sm",label:"Cruise Small",tsd:61,pill:"cruise-pill",group:"cruise"},
+  {id:"cruise_mid",label:"Cruise Mid",tsd:-39,pill:"cruise-pill",group:"cruise"},
+  {id:"cruise_lg",label:"Cruise Large",tsd:110,pill:"cruise-pill",group:"cruise"},
+  {id:"cruise_mega",label:"Cruise Mega",tsd:-9,pill:"cruise-pill",group:"cruise"},
+  {id:"cruise_p91",label:"+P91 Ship",tsd:44,pill:"cruise-pill",group:"cruise2"},
+  {id:"show_wknight",label:"Show Wknight",tsd:35,pill:"show-pill",group:"show"},
+  {id:"show_mat",label:"Show Matinee",tsd:40,pill:"show-pill",group:"show"},
+  {id:"show_2x",label:"Show 2x",tsd:75,pill:"show-pill",group:"show"},
+  {id:"hyatt",label:"Hyatt Checkout",tsd:40,pill:"event-pill",group:"hotel"},
+  {id:"holiday",label:"Holiday/Easter",tsd:-60,pill:"event-pill",group:"hol"},
+  {id:"sports_cheer",label:"Comp Cheer/Dance",tsd:128,pill:"show-pill",group:"sports",ratio:9.0},
+  {id:"sports_sat",label:"Comp Sat",tsd:121,pill:"show-pill",group:"sports",ratio:9.7},
+  {id:"sports_sun",label:"Comp Sun Finals",tsd:299,pill:"show-pill",group:"sports",ratio:10.2},
+  {id:"sports_wkdy",label:"Comp Wkday",tsd:130,pill:"show-pill",group:"sports",ratio:9.5}
 ];
-const planSt={};
-DAYS.forEach(d=>planSt[d]=new Set(['none']));
+const planSt={};DAYS.forEach(d=>planSt[d]=new Set(["none"]));
 
 function buildPlannerGrid(){
-  const g=document.getElementById('weekGrid'); if(!g) return;
+  const g=document.getElementById("weekGrid");if(!g)return;
   g.innerHTML=DAYS.map(day=>{
-    const pills=EV_OPTS.map(ev=>`<button class="event-pill ${ev.pill} ${planSt[day].has(ev.id)?'active':''}" onclick="togglePlannerEvent('${day}','${ev.id}','${ev.group}')">${ev.label}</button>`).join('');
-    return `<div class="day-row ${planSt[day].has('none')&&planSt[day].size===1?'':'has-event'}" id="dayrow-${day}"><div><div class="day-label">${DAY_NAMES[day]}</div><div class="day-baseline">~${BL_TSD[day]} TSDs</div></div><div class="event-pills" id="pills-${day}">${pills}</div></div>`;
-  }).join('');
+    const pills=EV_OPTS.map(ev=>'<button class="event-pill '+ev.pill+' '+( planSt[day].has(ev.id)?"active":"")+'" onclick="togglePlannerEvent('+"'"+day+"'"+','+"'"+ev.id+"'"+','+"'"+ev.group+"'"+')">'+ ev.label+'</button>').join("");
+    return'<div class="day-row '+( planSt[day].has("none")&&planSt[day].size===1?"":"has-event")+'" id="dayrow-'+day+'"><div><div class="day-label">'+DAY_NAMES[day]+'</div><div class="day-baseline">~'+BL_TSD[day]+' TSDs</div></div><div class="event-pills" id="pills-'+day+'">'+pills+'</div></div>';
+  }).join("");
 }
 
 function togglePlannerEvent(day,evId,group){
   const s=planSt[day];
-  if(evId==='none'){s.clear();s.add('none');}
-  else{
-    s.delete('none');
-    EV_OPTS.filter(e=>e.group===group&&e.id!==evId).forEach(e=>s.delete(e.id));
-    if(s.has(evId)) s.delete(evId); else s.add(evId);
-    if(s.size===0) s.add('none');
-  }
-  const pc=document.getElementById('pills-'+day);
-  pc.innerHTML=EV_OPTS.map(ev=>`<button class="event-pill ${ev.pill} ${s.has(ev.id)?'active':''}" onclick="togglePlannerEvent('${day}','${ev.id}','${ev.group}')">${ev.label}</button>`).join('');
-  document.getElementById('dayrow-'+day).classList.toggle('has-event',!(s.has('none')&&s.size===1));
+  if(evId==="none"){s.clear();s.add("none");}
+  else{s.delete("none");EV_OPTS.filter(e=>e.group===group&&e.id!==evId).forEach(e=>s.delete(e.id));if(s.has(evId))s.delete(evId);else s.add(evId);if(s.size===0)s.add("none");}
+  const pc=document.getElementById("pills-"+day);
+  pc.innerHTML=EV_OPTS.map(ev=>'<button class="event-pill '+ev.pill+' '+( s.has(ev.id)?"active":"")+'" onclick="togglePlannerEvent('+"'"+day+"'"+','+"'"+ev.id+"'"+','+"'"+ev.group+"'"+')">'+ ev.label+'</button>').join("");
+  document.getElementById("dayrow-"+day).classList.toggle("has-event",!(s.has("none")&&s.size===1));
   calcPlanner();
 }
 
 function calcPlanner(){
   const rows=DAYS.map(day=>{
-    const ids=Array.from(planSt[day]), isBase=ids.includes('none');
-    let lift=0, labels=[], ratio=10.5;
-    if(!isBase) ids.forEach(id=>{
-      const ev=EV_OPTS.find(e=>e.id===id); if(!ev||ev.id==='none') return;
-      lift+=ev.tsd; labels.push(ev.label);
-      if(ev.ratio) ratio=Math.min(ratio,ev.ratio);
-    });
-    const tsd=Math.max(BL_TSD[day]+lift,50), hrs=(tsd/ratio).toFixed(1);
+    const ids=Array.from(planSt[day]),isBase=ids.includes("none");
+    let lift=0,labels=[],ratio=10.5;
+    if(!isBase)ids.forEach(id=>{const ev=EV_OPTS.find(e=>e.id===id);if(!ev||ev.id==="none")return;lift+=ev.tsd;labels.push(ev.label);if(ev.ratio)ratio=Math.min(ratio,ev.ratio);});
+    const tsd=Math.max(BL_TSD[day]+lift,50),hrs=(tsd/ratio).toFixed(1);
     const diff=(parseFloat(hrs)-BL_HRS[day]).toFixed(1);
-    return{day,tsd,hrs,diff,sign:parseFloat(diff)>=0?'+':'',labels,isBase};
+    return{day,tsd,hrs,diff,sign:parseFloat(diff)>=0?"+":"",labels,isBase};
   });
   const totTsd=rows.reduce((s,r)=>s+r.tsd,0);
   const totHrs=rows.reduce((s,r)=>s+parseFloat(r.hrs),0).toFixed(1);
   const totBase=Object.values(BL_HRS).reduce((s,h)=>s+h,0).toFixed(1);
   const diff=(parseFloat(totHrs)-parseFloat(totBase)).toFixed(1);
   const r200=Math.round(totTsd/200*10);
-  document.getElementById('plannerResultsWrap').innerHTML=`
-    <div class="planner-results">
-      <div class="results-header">📅 ✨ Weekly Projection · 03298 7th & Pike</div>
-      <div class="week-summary-grid">
-        <div class="week-stat main"><div class="ws-val">${totTsd.toLocaleString()}</div><div class="ws-lbl">Projected TSDs</div></div>
-        <div class="week-stat"><div class="ws-val">${totHrs}</div><div class="ws-lbl">Earned Hrs</div></div>
-        <div class="week-stat"><div class="ws-val" style="color:${parseFloat(diff)>=0?'var(--mint)':'#f4a0c8'}">${parseFloat(diff)>=0?'+':''}${diff}</div><div class="ws-lbl">vs Baseline</div></div>
-      </div>
-      <div style="background:rgba(255,255,255,0.06);border-radius:12px;padding:14px;margin-bottom:16px;">
-        <div class="day-result-row header"><div>Day</div><div>Events</div><div style="text-align:right">TSDs</div><div style="text-align:right">Hrs</div><div style="text-align:right">vs Base</div></div>
-        ${rows.map(r=>`<div class="day-result-row"><div class="dr-day">${DAY_NAMES[r.day]}</div><div class="dr-events">${r.isBase?'—':r.labels.join(', ')}</div><div class="dr-tsd">${r.tsd}</div><div class="dr-hrs">${r.hrs}</div><div class="dr-vs ${parseFloat(r.diff)>=0?'up':'down'}">${r.sign}${r.diff} hrs</div></div>`).join('')}
-      </div>
-      <div class="rule200-note"><strong>vs Rule of 200:</strong> System would suggest ~<strong>${r200} hrs</strong>. Your event-adjusted projection is <strong>${totHrs} hrs</strong> — a difference of <strong>${parseFloat(diff)>=0?'+':''}${(parseFloat(totHrs)-r200).toFixed(1)} hrs</strong> the rule of 200 would miss. Use this to justify your schedule to your DM. 🐱</div>
-    </div>`;
+  document.getElementById("plannerResultsWrap").innerHTML=
+    '<div class="result-card summary"><div class="result-header">Weekly Projection &middot; 03298 7th &amp; Pike</div>'+
+    '<div class="week-summary-grid">'+
+    '<div class="week-stat main"><div class="ws-val">'+totTsd.toLocaleString()+'</div><div class="ws-lbl">Projected TSDs</div></div>'+
+    '<div class="week-stat"><div class="ws-val">'+totHrs+'</div><div class="ws-lbl">Earned Hrs</div></div>'+
+    '<div class="week-stat"><div class="ws-val" style="color:'+( parseFloat(diff)>=0?"var(--mint)":"#f4a0c8")+'">'+( parseFloat(diff)>=0?"+":"")+diff+'</div><div class="ws-lbl">vs Baseline</div></div>'+
+    '</div>'+
+    '<div style="background:rgba(255,255,255,0.06);border-radius:12px;padding:14px;margin-bottom:16px;">'+
+    '<div class="day-result-row header"><div>Day</div><div>Events</div><div style="text-align:right">TSDs</div><div style="text-align:right">Hrs</div><div style="text-align:right">vs Base</div></div>'+
+    rows.map(r=>'<div class="day-result-row"><div class="dr-day">'+DAY_NAMES[r.day]+'</div><div class="dr-events">'+( r.isBase?"&mdash;":r.labels.join(", "))+'</div><div class="dr-tsd">'+r.tsd+'</div><div class="dr-hrs">'+r.hrs+'</div><div class="dr-vs '+( parseFloat(r.diff)>=0?"up":"down")+'">'+r.sign+r.diff+' hrs</div></div>').join("")+
+    '</div>'+
+    '<div class="rule200-note"><strong>vs Rule of 200:</strong> System says ~<strong>'+r200+' hrs</strong>. Your projection: <strong>'+totHrs+' hrs</strong> &mdash; <strong>'+( parseFloat(diff)>=0?"+":"")+( parseFloat(totHrs)-r200).toFixed(1)+' hrs</strong> the rule of 200 misses. Use this to justify your schedule to Thai.</div>'+
+    '</div>';
 }
 
-document.addEventListener('DOMContentLoaded',()=>{buildPlannerGrid();calcPlanner();});
+document.addEventListener("DOMContentLoaded",()=>{buildPlannerGrid();calcPlanner();});
 </script>
 </body>
 </html>
